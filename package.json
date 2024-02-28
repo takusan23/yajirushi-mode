@@ -4,10 +4,11 @@
   "description": "自分のFigmaプラグイン",
   "main": "code.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
     "lint": "eslint --ext .ts,.tsx --ignore-pattern node_modules .",
     "lint:fix": "eslint --ext .ts,.tsx --ignore-pattern node_modules --fix .",
-    "watch": "npm run build -- --watch"
+    "build": "npm run build:ui && npm run build:plugin -- --minify",
+    "build:plugin": "esbuild src-plugin/code.ts --bundle --outfile=dist/code.js",
+    "build:ui": "npx vite build --minify esbuild --emptyOutDir=false"
   },
   "author": "",
   "license": "",
