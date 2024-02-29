@@ -12,8 +12,8 @@ function App() {
             <Title />
             {
                 message?.event === 'select_node' && <ArrowSetting
-                    firstNode={message.firstNode}
-                    secondNode={message.secondNode}
+                    startNode={message.startNode}
+                    endNode={message.endNode}
                 />
             }
             {

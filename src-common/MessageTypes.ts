@@ -35,9 +35,9 @@ export type Direction = 'top' | 'bottom' | 'left' | 'right'
 export type SelectNodes = {
     event: 'select_node',
     /** 1個目のノード */
-    firstNode: Node,
+    startNode: Node,
     /** 2個目のノード */
-    secondNode: Node
+    endNode: Node
 }
 
 /** アイテム選択が解除された、もしくは2つ以上選んだ */
@@ -58,8 +58,8 @@ export type CreateArrow = {
     endDirection: Direction,
     /** 矢印を書き始める際、右左折が必要な場合でも、この値までは真っすぐ突き進んでほしいか。 */
     requiredLine: number,
-    /** 矢印の向き先。first → second か、second → first か */
-    direction: 'firstToSecond' | 'secondToFirst'
+    /** 矢印の向き先。start 側につけるか、stop 側につけるか */
+    arrowDirection: 'endSide' | 'startSide'
 }
 
 /** やり取りできる型のユニオン！ */

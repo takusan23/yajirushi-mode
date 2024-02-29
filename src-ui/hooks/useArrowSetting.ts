@@ -3,9 +3,9 @@ import { CreateArrow, Direction, Node, Position } from "../../src-common/Message
 import FigmaUiMessageTool from "../tools/FigmaUiMessageTool"
 
 /** ArrowSetting コンポーネントで使うカスタムフック。ロジックをあんまり書くのもあれかなと思い、、、 */
-function useArrowSetting(firstNode: Node, secondNode: Node) {
-    const [firstNodeDirection, setFirstNodeDirection] = useState<Direction>('right')
-    const [secondNodeDirection, setSecondNodeDirection] = useState<Direction>('left')
+function useArrowSetting(startNode: Node, endNode: Node) {
+    const [startNodeDirection, setStartNodeDirection] = useState<Direction>('right')
+    const [endNodeDirection, setEndNodeDirection] = useState<Direction>('left')
     const [requiredLine, setRequiredLine] = useState(10)
 
     /** 矢印の線を引き始める際に、線を出すのはどの方角からか、線を受け取るのはどの方角からかを設定する。*/
@@ -13,32 +13,32 @@ function useArrowSetting(firstNode: Node, secondNode: Node) {
         start: Direction,
         end: Direction
     ) {
-        setFirstNodeDirection(start)
-        setSecondNodeDirection(end)
+        setStartNodeDirection(start)
+        setEndNodeDirection(end)
     }
 
     /** 線を引くリクエストを Figma プラグイン側へ投げる */
     function postCreateArrowMessage() {
         // 線を書き始める位置
-        const startPosition = createPositionFromDirection(firstNode, firstNodeDirection)
+        const startPosition = createPositionFromDirection(startNode, startNodeDirection)
         // 線を書き終える位置
-        const endPosition = createPositionFromDirection(secondNode, secondNodeDirection)
+        const endPosition = createPositionFromDirection(endNode, endNodeDirection)
 
         const createArrow: CreateArrow = {
             event: 'create_arrow',
             start: startPosition,
             end: endPosition,
             requiredLine: requiredLine,
-            startDirection: firstNodeDirection,
-            endDirection: secondNodeDirection,
-            direction: 'firstToSecond'
+            startDirection: startNodeDirection,
+            endDirection: endNodeDirection,
+            arrowDirection: 'endSide'
         }
         FigmaUiMessageTool.postMessage(createArrow)
     }
 
     return {
-        firstNodeDirection,
-        secondNodeDirection,
+        startNodeDirection,
+        endNodeDirection,
         requiredLine,
         setDirection,
         setRequiredLine,

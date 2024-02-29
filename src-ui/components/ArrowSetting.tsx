@@ -6,30 +6,30 @@ import RequiredLine from "./RequiredLine";
 /** ArrowSetting に渡す Props */
 type ArrowSettingProps = {
     /** 最初のアイテム */
-    firstNode: Node,
+    startNode: Node,
     /** 最初のアイテム */
-    secondNode: Node,
+    endNode: Node,
 }
 
 /** 矢印の設定コンポーネント */
-function ArrowSetting({ firstNode, secondNode }: ArrowSettingProps) {
+function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
 
     // ロジックをカスタムフックに切り出した。クソ長くなったので、、
-    const { firstNodeDirection, secondNodeDirection, requiredLine, setDirection, setRequiredLine, postCreateArrowMessage } = useArrowSetting(firstNode, secondNode)
+    const { startNodeDirection, endNodeDirection, requiredLine, setDirection, setRequiredLine, postCreateArrowMessage } = useArrowSetting(startNode, endNode)
 
     return (
         <div className="flex flex-col space-y-2 py-2">
 
-            <NodeInfo node={firstNode} />
-            <NodeInfo node={secondNode} />
+            <NodeInfo node={startNode} />
+            <NodeInfo node={endNode} />
 
             <div className="flex flex-row justify-center space-x-2">
                 <NodeLineDirection
-                    direction={firstNodeDirection}
-                    onChange={(direction) => setDirection(direction, secondNodeDirection)} />
+                    direction={startNodeDirection}
+                    onChange={(direction) => setDirection(direction, endNodeDirection)} />
                 <NodeLineDirection
-                    direction={secondNodeDirection}
-                    onChange={(direction) => setDirection(firstNodeDirection, direction)} />
+                    direction={endNodeDirection}
+                    onChange={(direction) => setDirection(startNodeDirection, direction)} />
                 <RequiredLine
                     requiredLine={requiredLine}
                     onChange={(value) => setRequiredLine(value)} />

@@ -75,8 +75,8 @@ function listenSelectionChange() {
       }))
       FigmaPluginMessageTool.postMessage({
         event: 'select_node',
-        firstNode: first,
-        secondNode: second
+        startNode: first,
+        endNode: second
       })
     } else {
       // 選択してない、もしくは2個以上選んだ
