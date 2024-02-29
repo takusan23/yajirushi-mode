@@ -1,6 +1,5 @@
 import { useState } from "react"
-import { CreateArrow, Node, Position } from "../../src-common/MessageTypes"
-import Direction from "../data/Direction"
+import { CreateArrow, Direction, Node, Position } from "../../src-common/MessageTypes"
 import FigmaUiMessageTool from "../tools/FigmaUiMessageTool"
 
 /** ArrowSetting コンポーネントで使うカスタムフック。ロジックをあんまり書くのもあれかなと思い、、、 */

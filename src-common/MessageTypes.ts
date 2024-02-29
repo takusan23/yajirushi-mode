@@ -28,6 +28,9 @@ export type Node = {
     size: Size
 }
 
+/** 向きを表す */
+export type Direction = 'top' | 'bottom' | 'left' | 'right'
+
 /** 2つのアイテム（ノード）を選択したら呼ばれる */
 export type SelectNodes = {
     event: 'select_node',

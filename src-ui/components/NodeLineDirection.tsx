@@ -1,4 +1,4 @@
-import Direction from "../data/Direction"
+import { Direction } from "../../src-common/MessageTypes"
 
 /** NodeLineDirection へ渡す Props */
 type NodeLineDirectionProps = {

@@ -1,7 +1,5 @@
-import { useState } from "react";
-import { CreateArrow, Node, Position } from "../../src-common/MessageTypes";
+import { Node } from "../../src-common/MessageTypes";
 import NodeLineDirection from "./NodeLineDirection";
-import Direction from "../data/Direction";
 import useArrowSetting from "../hooks/useArrowSetting";
 
 /** ArrowSetting に渡す Props */

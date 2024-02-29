@@ -1,8 +1,8 @@
 import useFigmaUiMessageHook from './hooks/useFigmaUiMessageHook'
 import Title from './components/Title'
 import ArrowSetting from './components/ArrowSetting'
-import "./App.css"
 import SelectError from './components/SelectError'
+import "./App.css"
 
 function App() {
     const { message, postMessage } = useFigmaUiMessageHook()

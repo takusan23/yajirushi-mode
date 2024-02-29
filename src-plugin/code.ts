@@ -8,6 +8,7 @@
 
 import FigmaPluginMessageTool from "./FigmaPluginMessageTool";
 import { CreateArrow } from "../src-common/MessageTypes";
+import CreateArrowTool from "./CreateArrowTool";
 
 // メイン関数を呼ぶ
 main()
@@ -27,9 +28,9 @@ function listenUiMessage() {
   // UI 側からのイベントを捌く
   FigmaPluginMessageTool.receiveMessage((message) => {
     switch (message.event) {
-      // UI から矢印を作れ命令
+      // 矢印を作る
       case 'create_arrow':
-        createArrow(message)
+        CreateArrowTool.createArrow(message)
         break
     }
   })
@@ -83,42 +84,6 @@ function listenSelectionChange() {
       FigmaPluginMessageTool.postMessage({ event: 'unselect_node' })
     }
   })
-}
-
-/**
- * CreateArrow を下に矢印を引く
- * @param createArrow 
- */
-function createArrow(createArrow: CreateArrow) {
-
-  // スタート
-  const startX = createArrow.start.x
-  const startY = createArrow.start.y
-
-  // ゴール
-  const endX = createArrow.end.x
-  const endY = createArrow.end.y
-
-  // 中間点
-  const centerX = startX + (endX - startX)
-  const centerY = startY + (endY - startY)
-
-  // 線を引く
-  // SVG、どうやって書こう、、、
-  const data = [
-    `M ${startX} ${startY}`,
-    `L ${centerX} ${centerY}`,
-    `L ${endX} ${endY}`
-  ].join(' ')
-
-  console.log(data)
-  const lineVector = figma.createVector()
-  lineVector.strokeWeight = 5
-  lineVector.vectorPaths = [{
-    windingRule: 'NONE',
-    data: data
-  }]
-  figma.currentPage.appendChild(lineVector)
 }
 
 // Calls to "parent.postMessage" from within the HTML page will trigger this
