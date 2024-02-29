@@ -9,27 +9,80 @@
 import FigmaPluginMessageTool from "./FigmaPluginMessageTool";
 import { CreateArrow } from "../src-common/MessageTypes";
 
-// This shows the HTML page in "index.html".
-figma.showUI(__html__)
+// メイン関数を呼ぶ
+main()
 
-// UI 側からのイベントを捌く
-FigmaPluginMessageTool.receiveMessage((message) => {
-  switch (message.event) {
-    // UI から矢印を作れ命令
-    case 'create_arrow':
-      createArrow(message)
-      break
-  }
-})
+/** メイン関数 */
+function main() {
+  // This shows the HTML page in "index.html".
+  figma.showUI(__html__)
 
-type Position = {
-  x: number,
-  y: number
+  // イベントを購読
+  listenUiMessage()
+  listenSelectionChange()
 }
 
-type Line = {
-  start: Position,
-  end: Position
+/** UI 側からのイベントを購読する */
+function listenUiMessage() {
+  // UI 側からのイベントを捌く
+  FigmaPluginMessageTool.receiveMessage((message) => {
+    switch (message.event) {
+      // UI から矢印を作れ命令
+      case 'create_arrow':
+        createArrow(message)
+        break
+    }
+  })
+}
+
+/** selectionchange イベントを購読する */
+function listenSelectionChange() {
+  // 1番目、2番目に選んだアイテム
+  let firstSelectNode: SceneNode | null = null
+  let secondSelectNode: SceneNode | null = null
+
+  // 2つのアイテム（Node）を選択したかどうか
+  figma.on("selectionchange", () => {
+    // 複数選択中ならこの配列にアイテム（ノード）が入る
+    // 配列のインデックスはランダムなので、それに依存してはいけない。（最初に選択したノードは[0]ではない可能性）
+    const selectionList = figma.currentPage.selection
+    const selectSize = selectionList.length
+
+    // 選択を解除した
+    if (selectSize === 0) {
+      firstSelectNode = null
+      secondSelectNode = null
+    }
+
+    // 1つ目を選んだ
+    if (selectSize === 1) {
+      firstSelectNode = selectionList[0]
+    }
+
+    // 2つ目も選んだ
+    if (selectSize === 2) {
+      // 配列のインデックスは見てはいけないので、1つ目の ID に一致しないノードを探す
+      secondSelectNode = selectionList.find(node => node.id !== firstSelectNode?.id)!
+    }
+
+    // 2つ選んでいる状態で
+    if (selectSize === 2 && firstSelectNode && secondSelectNode) {
+      // 自前の Node オブジェクトに変換して UI 側に通知
+      const [first, second] = [firstSelectNode, secondSelectNode].map((node) => ({
+        id: node.id,
+        position: { x: node.x, y: node.y },
+        size: { width: node.width, height: node.height }
+      }))
+      FigmaPluginMessageTool.postMessage({
+        event: 'select_node',
+        firstNode: first,
+        secondNode: second
+      })
+    } else {
+      // 選択してない、もしくは2個以上選んだ
+      FigmaPluginMessageTool.postMessage({ event: 'unselect_node' })
+    }
+  })
 }
 
 /**
@@ -67,29 +120,6 @@ function createArrow(createArrow: CreateArrow) {
   }]
   figma.currentPage.appendChild(lineVector)
 }
-
-// 2つのアイテム（Node）を選択したかどうか
-figma.on("selectionchange", () => {
-  const selectionList = figma.currentPage.selection
-  // 2つ以上選んだ、または選んでいないことを UI 側に通知
-  const [first, second] = selectionList.map((node) => ({
-    id: node.id,
-    position: { x: node.x, y: node.y },
-    size: { width: node.width, height: node.height }
-  }))
-
-  FigmaPluginMessageTool.postMessage(
-    selectionList.length == 2
-      ? {
-        event: "select_node",
-        firstNode: first,
-        secondNode: second
-      }
-      : {
-        event: 'unselect_node'
-      }
-  )
-})
 
 // Calls to "parent.postMessage" from within the HTML page will trigger this
 // callback. The callback will be passed the "pluginMessage" property of the
