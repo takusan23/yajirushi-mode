@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { CreateArrow, Node, Position } from "../../src-common/MessageTypes";
-import NodeLineDirection from "./arrow-settings/NodeLineDirection";
+import NodeLineDirection from "./NodeLineDirection";
+import Direction from "../data/Direction";
 
 /** ArrowSetting に渡す Props */
 type ArrowSettingProps = {
@@ -12,12 +14,20 @@ type ArrowSettingProps = {
 
 /** 矢印の設定コンポーネント */
 function ArrowSetting({ firstNode, secondNode, onCreateArrow }: ArrowSettingProps) {
+
+    const [firstNodeDirection, setFirstNodeDirection] = useState<Direction>('right')
+    const [secondNodeDirection, setSecondNodeDirection] = useState<Direction>('left')
+
     return (
         <div className="flex flex-col space-y-2">
 
             <NodeInfo node={firstNode} />
             <NodeInfo node={secondNode} />
-            <NodeLineDirection />
+
+            <div className="flex flex-row justify-center space-x-2">
+                <NodeLineDirection direction={firstNodeDirection} onChange={setFirstNodeDirection} />
+                <NodeLineDirection direction={secondNodeDirection} onChange={setSecondNodeDirection} />
+            </div>
 
             <button
                 className="rounded-md border-blue-300 border-2 mx-5"
