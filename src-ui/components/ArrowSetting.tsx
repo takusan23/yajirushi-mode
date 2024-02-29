@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CreateArrow, Node, Position } from "../../src-common/MessageTypes";
 import NodeLineDirection from "./NodeLineDirection";
 import Direction from "../data/Direction";
+import useArrowSetting from "../hooks/useArrowSetting";
 
 /** ArrowSetting に渡す Props */
 type ArrowSettingProps = {
@@ -9,14 +10,13 @@ type ArrowSettingProps = {
     firstNode: Node,
     /** 最初のアイテム */
     secondNode: Node,
-    onCreateArrow: (message: CreateArrow) => void
 }
 
 /** 矢印の設定コンポーネント */
-function ArrowSetting({ firstNode, secondNode, onCreateArrow }: ArrowSettingProps) {
+function ArrowSetting({ firstNode, secondNode }: ArrowSettingProps) {
 
-    const [firstNodeDirection, setFirstNodeDirection] = useState<Direction>('right')
-    const [secondNodeDirection, setSecondNodeDirection] = useState<Direction>('left')
+    // ロジックをカスタムフックに切り出した。クソ長くなったので、、
+    const { firstNodeDirection, secondNodeDirection, setDirection, postCreateArrowMessage } = useArrowSetting(firstNode, secondNode)
 
     return (
         <div className="flex flex-col space-y-2">
@@ -25,31 +25,17 @@ function ArrowSetting({ firstNode, secondNode, onCreateArrow }: ArrowSettingProp
             <NodeInfo node={secondNode} />
 
             <div className="flex flex-row justify-center space-x-2">
-                <NodeLineDirection direction={firstNodeDirection} onChange={setFirstNodeDirection} />
-                <NodeLineDirection direction={secondNodeDirection} onChange={setSecondNodeDirection} />
+                <NodeLineDirection
+                    direction={firstNodeDirection}
+                    onChange={(direction) => setDirection(direction, secondNodeDirection)} />
+                <NodeLineDirection
+                    direction={secondNodeDirection}
+                    onChange={(direction) => setDirection(firstNodeDirection, direction)} />
             </div>
 
             <button
                 className="rounded-md border-blue-300 border-2 mx-5"
-                onClick={() => {
-
-                    const start: Position = {
-                        x: firstNode.position.x + firstNode.size.width,
-                        y: firstNode.position.y + firstNode.size.height / 2
-                    }
-                    const end: Position = {
-                        x: secondNode.position.x,
-                        y: secondNode.position.y + (secondNode.size.height / 2)
-                    }
-
-                    const createArrow: CreateArrow = {
-                        event: 'create_arrow',
-                        start: start,
-                        end: end,
-                        direction: 'firstToSecond'
-                    }
-                    onCreateArrow(createArrow)
-                }}>
+                onClick={() => postCreateArrowMessage()}>
                 矢印を作る
             </button>
         </div>

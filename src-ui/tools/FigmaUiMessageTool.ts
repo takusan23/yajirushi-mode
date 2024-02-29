@@ -1,5 +1,5 @@
-import FigmaMessageInterface from "../src-common/FigmaMessageInterface";
-import { MessageTypes } from "../src-common/MessageTypes";
+import FigmaMessageInterface from "../../src-common/FigmaMessageInterface";
+import { MessageTypes } from "../../src-common/MessageTypes";
 
 /**
  * プラグイン側のメッセージを受け取ったり、プラグイン側へメッセージを送ったりする。

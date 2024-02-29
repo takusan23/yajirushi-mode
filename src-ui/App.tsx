@@ -1,4 +1,4 @@
-import useFigmaUiMessageHook from './useFigmaUiMessageHook'
+import useFigmaUiMessageHook from './hooks/useFigmaUiMessageHook'
 import Title from './components/Title'
 import ArrowSetting from './components/ArrowSetting'
 import "./App.css"

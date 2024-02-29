@@ -71,7 +71,6 @@ function createArrow(createArrow: CreateArrow) {
 // 2つのアイテム（Node）を選択したかどうか
 figma.on("selectionchange", () => {
   const selectionList = figma.currentPage.selection
-  console.log(selectionList)
   // 2つ以上選んだ、または選んでいないことを UI 側に通知
   const [first, second] = selectionList.map((node) => ({
     id: node.id,

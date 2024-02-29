@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import FigmaUiMessageTool from "./FigmaUiMessageTool"
-import { MessageTypes } from "../src-common/MessageTypes"
+import FigmaUiMessageTool from "../tools/FigmaUiMessageTool"
+import { MessageTypes } from "../../src-common/MessageTypes"
 
 /** {@link FigmaUiMessageTool}を React で使えるようにしたカスタムフック */
 function useFigmaUiMessageHook() {
