@@ -11,8 +11,8 @@ type NodeLineDirectionProps = {
 /** アイテム（ノードの）東西南北どこから線を引き始める・終わるかを設定する */
 function NodeLineDirection({ direction, onChange }: NodeLineDirectionProps) {
     return (
-        <div className="flex items-center justify-center h-20 w-20 border-black border-2">
-            <label htmlFor="direction">方角</label>
+        <div className="flex flex-col items-center justify-center h-20 w-20 border-black border-2">
+            <label htmlFor="direction">線の方角</label>
             <select
                 id="direction"
                 value={direction}

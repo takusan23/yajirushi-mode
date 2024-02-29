@@ -52,6 +52,12 @@ export type CreateArrow = {
     start: Position,
     /** 矢印のゴール位置 */
     end: Position,
+    /** 矢印のスタート方向。この方角から矢印が書かれる。 */
+    startDirection: Direction,
+    /** 矢印のゴール方向。この方向へ向けて矢印が向かってくる。 */
+    endDirection: Direction,
+    /** 矢印を書き始める際、右左折が必要な場合でも、この値までは真っすぐ突き進んでほしいか。 */
+    requiredLine: number,
     /** 矢印の向き先。first → second か、second → first か */
     direction: 'firstToSecond' | 'secondToFirst'
 }

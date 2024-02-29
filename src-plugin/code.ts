@@ -7,7 +7,6 @@
 // full browser environment (See https://www.figma.com/plugin-docs/how-plugins-run).
 
 import FigmaPluginMessageTool from "./FigmaPluginMessageTool";
-import { CreateArrow } from "../src-common/MessageTypes";
 import CreateArrowTool from "./CreateArrowTool";
 
 // メイン関数を呼ぶ

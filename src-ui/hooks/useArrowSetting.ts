@@ -6,6 +6,7 @@ import FigmaUiMessageTool from "../tools/FigmaUiMessageTool"
 function useArrowSetting(firstNode: Node, secondNode: Node) {
     const [firstNodeDirection, setFirstNodeDirection] = useState<Direction>('right')
     const [secondNodeDirection, setSecondNodeDirection] = useState<Direction>('left')
+    const [requiredLine, setRequiredLine] = useState(10)
 
     /** 矢印の線を引き始める際に、線を出すのはどの方角からか、線を受け取るのはどの方角からかを設定する。*/
     function setDirection(
@@ -27,6 +28,9 @@ function useArrowSetting(firstNode: Node, secondNode: Node) {
             event: 'create_arrow',
             start: startPosition,
             end: endPosition,
+            requiredLine: requiredLine,
+            startDirection: firstNodeDirection,
+            endDirection: secondNodeDirection,
             direction: 'firstToSecond'
         }
         FigmaUiMessageTool.postMessage(createArrow)
@@ -35,7 +39,9 @@ function useArrowSetting(firstNode: Node, secondNode: Node) {
     return {
         firstNodeDirection,
         secondNodeDirection,
+        requiredLine,
         setDirection,
+        setRequiredLine,
         postCreateArrowMessage
     }
 }
