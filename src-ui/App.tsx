@@ -2,6 +2,7 @@ import useFigmaUiMessageHook from './hooks/useFigmaUiMessageHook'
 import Title from './components/Title'
 import ArrowSetting from './components/ArrowSetting'
 import "./App.css"
+import SelectError from './components/SelectError'
 
 function App() {
     const { message, postMessage } = useFigmaUiMessageHook()
@@ -13,8 +14,10 @@ function App() {
                 message?.event === 'select_node' && <ArrowSetting
                     firstNode={message.firstNode}
                     secondNode={message.secondNode}
-                    onCreateArrow={(message) => postMessage(message)}
                 />
+            }
+            {
+                message?.event === 'unselect_node' && <SelectError />
             }
         </div>
     )
