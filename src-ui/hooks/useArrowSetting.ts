@@ -8,6 +8,8 @@ function useArrowSetting(startNode: Node, endNode: Node) {
     const [endNodeDirection, setEndNodeDirection] = useState<Direction>('left')
     const [requiredLine, setRequiredLine] = useState(50)
     const [arrowDirection, setArrowDirection] = useState<ArrowDirection>('endSide')
+    const [lineWeight, setLineWeight] = useState(10)
+    const [cornerRadius, setCornerRadius] = useState(25)
 
     /** 矢印の線を引き始める際に、線を出すのはどの方角からか、線を受け取るのはどの方角からかを設定する。*/
     function setDirection(
@@ -32,7 +34,9 @@ function useArrowSetting(startNode: Node, endNode: Node) {
             requiredLine: requiredLine,
             startDirection: startNodeDirection,
             endDirection: endNodeDirection,
-            arrowDirection: arrowDirection
+            arrowDirection: arrowDirection,
+            lineWeight: lineWeight,
+            cornerRadius: cornerRadius
         }
         FigmaUiMessageTool.postMessage(createArrow)
     }
@@ -42,9 +46,13 @@ function useArrowSetting(startNode: Node, endNode: Node) {
         endNodeDirection,
         requiredLine,
         arrowDirection,
+        lineWeight,
+        cornerRadius,
         setDirection,
         setRequiredLine,
         setArrowDirection,
+        setLineWeight,
+        setCornerRadius,
         postCreateArrowMessage
     }
 }

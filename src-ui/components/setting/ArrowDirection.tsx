@@ -6,9 +6,9 @@ type LabelData = {
 }
 
 const LabelArrowDirectionPair: LabelData[] = [
-    { label: '開始側', arrowDirection: 'startSide' },
-    { label: '終了側', arrowDirection: 'endSide' },
-    { label: '両方', arrowDirection: 'startAndEndSide' }
+    { label: '■←', arrowDirection: 'startSide' },
+    { label: '→■', arrowDirection: 'endSide' },
+    { label: '←→', arrowDirection: 'startAndEndSide' }
 ]
 
 /** ArrowDirection へ渡す Props */
@@ -22,20 +22,40 @@ type ArrowDirectionProps = {
 /** 矢印を開始側につけるか、終了側につけるのか、設定する */
 function ArrowDirection({ arrowDirection, onChange }: ArrowDirectionProps) {
     return (
-        <div className="flex flex-col w-20">
-            <p>矢印をつける側</p>
+        <div className="flex flex-row  items-center p-2">
+            <p className="flex-1 text-lg">矢印の向き</p>
+            <div className="flex-1">
+                <ArrowDirectionSelection current={arrowDirection} onChange={onChange} />
+            </div>
+        </div>
+    )
+}
+
+/** ArrowDirectionSelection に渡す Props */
+type ArrowDirectionSelectionProps = {
+    /** 現在の ArrowDirection */
+    current: ArrowDirection,
+    /** 変化時に呼ばれる */
+    onChange: (arrowDirection: ArrowDirection) => void
+}
+
+/** 矢印の向きを決める。三択の中から */
+function ArrowDirectionSelection({ current, onChange }: ArrowDirectionSelectionProps) {
+    return (
+        <div className="flex flex-row w-full">
             {
-                LabelArrowDirectionPair.map((labelData) => (<>
-                    <label key={labelData.arrowDirection}>
-                        <input
-                            type="radio"
-                            value={labelData.label}
-                            checked={labelData.arrowDirection === arrowDirection}
-                            onChange={() => onChange(labelData.arrowDirection)}
-                        />
-                        {labelData.label}
-                    </label>
-                </>))
+                LabelArrowDirectionPair.map((labelData) => {
+                    // 選択中の場合は枠の色を変える
+                    const selectStyle = labelData.arrowDirection === current ? 'border-blue-500 border-2' : 'border-gray-500 border-[1px]'
+                    return (
+                        <button
+                            className={`flex-1 aspect-square ${selectStyle} cursor-pointer`}
+                            onClick={() => onChange(labelData.arrowDirection)}
+                            key={labelData.arrowDirection}>
+                            {labelData.label}
+                        </button>
+                    )
+                })
             }
         </div>
     )

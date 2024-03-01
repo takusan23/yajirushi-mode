@@ -1,5 +1,5 @@
 import { CreateArrow } from "../src-common/MessageTypes"
-import DrawLineAlgorithm from "./DrawLineAlgorithm"
+import DrawLineAlgorithmTool from "./DrawLineAlgorithmTool"
 
 /** 線を引くための処理 */
 class CreateArrowTool {
@@ -11,7 +11,7 @@ class CreateArrowTool {
     static async createArrow(createArrow: CreateArrow) {
 
         // 線の開始、終了、折れ曲がる点を出す
-        const generateRoutePositionList = DrawLineAlgorithm.generateRoute(createArrow)
+        const generateRoutePositionList = DrawLineAlgorithmTool.generateRoute(createArrow)
         // 出来ない場合
         if (!generateRoutePositionList) {
             throw Error('経路検索に失敗しました')
@@ -29,8 +29,8 @@ class CreateArrowTool {
         console.log(generateRoutePositionList)
 
         const lineVector = figma.createVector()
-        lineVector.strokeWeight = 5
-        lineVector.cornerRadius = 20
+        lineVector.strokeWeight = createArrow.lineWeight
+        lineVector.cornerRadius = createArrow.cornerRadius
 
         // 矢印を追加するためには、VectorPath ではなく、VectorNetwork を使って、最後（or 最初）のストロークに矢印をつける必要があるらしい。
         // が、SVG の data を VectorNetwork にするのは面倒なので、

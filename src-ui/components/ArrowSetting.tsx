@@ -3,6 +3,8 @@ import NodeLineDirection from "./setting/NodeLineDirection";
 import useArrowSetting from "../hooks/useArrowSetting";
 import RequiredLine from "./setting/RequiredLine";
 import ArrowDirection from "./setting/ArrowDirection";
+import LineWeight from "./setting/LineWeight";
+import CornerRadius from "./setting/CornerRadius";
 
 /** ArrowSetting に渡す Props */
 type ArrowSettingProps = {
@@ -21,9 +23,13 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
         endNodeDirection,
         requiredLine,
         arrowDirection,
+        lineWeight,
+        cornerRadius,
         setDirection,
         setRequiredLine,
         setArrowDirection,
+        setLineWeight,
+        setCornerRadius,
         postCreateArrowMessage
     } = useArrowSetting(startNode, endNode)
 
@@ -44,13 +50,19 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
                     onChange={(direction) => setDirection(startNodeDirection, direction)} />
             </div>
 
-            <div className="flex flex-row justify-center space-x-2">
+            <div className="flex flex-col space-y-2 px-2">
                 <RequiredLine
                     requiredLine={requiredLine}
                     onChange={setRequiredLine} />
                 <ArrowDirection
                     arrowDirection={arrowDirection}
                     onChange={setArrowDirection} />
+                <LineWeight
+                    lineWeight={lineWeight}
+                    onChange={setLineWeight} />
+                <CornerRadius
+                    cornerRadius={cornerRadius}
+                    onChange={setCornerRadius} />
             </div>
 
             <button

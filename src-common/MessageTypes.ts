@@ -61,6 +61,10 @@ export type CreateArrow = {
     endDirection: Direction,
     /** 矢印を書き始める際、右左折が必要な場合でも、この値までは真っすぐ突き進んでほしいか。 */
     requiredLine: number,
+    /** 線の太さ */
+    lineWeight: number,
+    /** 角丸（角の半径） */
+    cornerRadius: number,
     /** 矢印の向き先。start 側につけるか、stop 側につけるか */
     arrowDirection: ArrowDirection
 }

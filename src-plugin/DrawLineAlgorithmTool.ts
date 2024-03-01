@@ -1,6 +1,6 @@
 import { CreateArrow, Position } from "../src-common/MessageTypes";
 
-class DrawLineAlgorithm {
+class DrawLineAlgorithmTool {
 
     /** 二つの座標を直線ではなく、右左折を繰り返して結ぶ関数 */
     static generateRoute(createArrow: CreateArrow): Position[] | null {
@@ -228,4 +228,4 @@ class DrawLineAlgorithm {
 
 }
 
-export default DrawLineAlgorithm
+export default DrawLineAlgorithmTool
