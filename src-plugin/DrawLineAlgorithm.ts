@@ -95,7 +95,7 @@ class DrawLineAlgorithm {
 
         // 中間点から縦と横に棒を伸ばして、ぶつかること
         const centerToTopLine: Position = { x: centerX, y: Math.min(startY, endY) }
-        const centerToBottomLine: Position = { x: centerX, y: Math.min(startY, endY) }
+        const centerToBottomLine: Position = { x: centerX, y: Math.max(startY, endY) }
         const centerToLeftLine: Position = { x: Math.min(startX, endX), y: centerY }
         const centerToRightLine: Position = { x: Math.max(startX, endX), y: centerY }
         const centerToLineList = [centerToTopLine, centerToBottomLine, centerToLeftLine, centerToRightLine]
