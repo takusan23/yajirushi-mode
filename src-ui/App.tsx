@@ -1,5 +1,4 @@
 import useFigmaUiMessageHook from './hooks/useFigmaUiMessageHook'
-import Title from './components/Title'
 import ArrowSetting from './components/ArrowSetting'
 import SelectError from './components/SelectError'
 import "./App.css"
@@ -9,7 +8,7 @@ function App() {
 
     return (
         <div className='flex flex-col'>
-            <Title />
+            {/* <Title /> 出すスペースがない... */}
             {
                 message?.event === 'select_node' && <ArrowSetting
                     startNode={message.startNode}

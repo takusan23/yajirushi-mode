@@ -30,14 +30,16 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
     return (
         <div className="flex flex-col space-y-2 py-2">
 
-            <NodeInfo node={startNode} />
-            <NodeInfo node={endNode} />
-
-            <div className="flex flex-row justify-center space-x-2">
+            {/* 線をどの方角から出して、どの方角から受け入れるか */}
+            <div className="flex flex-row justify-evenly space-x-2 py-2">
                 <NodeLineDirection
+                    index={1}
+                    nodeSize={startNode.size}
                     direction={startNodeDirection}
                     onChange={(direction) => setDirection(direction, endNodeDirection)} />
                 <NodeLineDirection
+                    index={2}
+                    nodeSize={endNode.size}
                     direction={endNodeDirection}
                     onChange={(direction) => setDirection(startNodeDirection, direction)} />
             </div>
