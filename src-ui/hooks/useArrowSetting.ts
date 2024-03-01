@@ -6,7 +6,7 @@ import FigmaUiMessageTool from "../tools/FigmaUiMessageTool"
 function useArrowSetting(startNode: Node, endNode: Node) {
     const [startNodeDirection, setStartNodeDirection] = useState<Direction>('right')
     const [endNodeDirection, setEndNodeDirection] = useState<Direction>('left')
-    const [requiredLine, setRequiredLine] = useState(10)
+    const [requiredLine, setRequiredLine] = useState(50)
 
     /** 矢印の線を引き始める際に、線を出すのはどの方角からか、線を受け取るのはどの方角からかを設定する。*/
     function setDirection(

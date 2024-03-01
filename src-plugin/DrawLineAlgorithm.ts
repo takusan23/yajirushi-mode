@@ -12,6 +12,9 @@ class DrawLineAlgorithm {
         // start / end でそれぞれ棒を伸ばして、かつ中間点を取って、その点から十字の線を引き、線にぶつかれば → 2回折れ曲がる線を書く。
         // それ以外は諦める。ごめん。
 
+        // Figma の座標系は、上に行くにつれてマイナスになる
+        // 右に行くほど + になるはそう。
+
         const {
             start,
             end,
@@ -21,25 +24,29 @@ class DrawLineAlgorithm {
             arrowDirection
         } = createArrow
 
-        // 直線でいい場合
-        if (start.x == end.x || start.y == end.y) {
-            return this.linearLine(createArrow)
-        }
-
         // 同じ方向から出る線の場合
         if (startDirection === endDirection) {
+            console.log('uLine')
             return this.uLine(createArrow)
+        }
+
+        // 直線でいい場合
+        if (start.x == end.x || start.y == end.y) {
+            console.log('linearLine')
+            return this.linearLine(createArrow)
         }
 
         // 一回の右左折で完結する場合
         const oneTurnLineOrNull = this.oneTurnLine(createArrow)
         if (oneTurnLineOrNull) {
+            console.log('oneTurnLine')
             return oneTurnLineOrNull
         }
 
         // 2回右左折する必要がある
         const twoTurnLineOrNull = this.twoTurnLine(createArrow)
         if (twoTurnLineOrNull) {
+            console.log('twoTurnLine')
             return twoTurnLineOrNull
         }
 
@@ -180,31 +187,27 @@ class DrawLineAlgorithm {
     private static uLine(createArrow: CreateArrow): Position[] {
         const { x: startX, y: startY } = createArrow.start
         const { x: endX, y: endY } = createArrow.end
-
-        // ノードから真っ直ぐ確保する長さ
-        const requiredStartX = this.isNegative(createArrow.start.x) ? (createArrow.start.x - createArrow.requiredLine) : (createArrow.start.x + createArrow.requiredLine)
-        const requiredStartY = this.isNegative(createArrow.start.y) ? (createArrow.start.y - createArrow.requiredLine) : (createArrow.start.y + createArrow.requiredLine)
-        const requiredEndX = this.isNegative(createArrow.end.x) ? (createArrow.end.x - createArrow.requiredLine) : (createArrow.end.x + createArrow.requiredLine)
-        const requiredEndY = this.isNegative(createArrow.end.y) ? (createArrow.end.y - createArrow.requiredLine) : (createArrow.end.y + createArrow.requiredLine)
+        const requiredLine = createArrow.requiredLine
 
         // 折れ曲がる点を出す
+        // 座標系は上に向けてマイナスになるので注意
         let firstTurn: Position
         let secondTurn: Position
         switch (createArrow.startDirection) {
             case "top":
-                firstTurn = { x: startX, y: Math.max(requiredStartY, requiredEndY) }
+                firstTurn = { x: startX, y: Math.min(startY - requiredLine, endY - requiredLine) }
                 secondTurn = { x: endX, y: firstTurn.y }
                 break
             case "bottom":
-                firstTurn = { x: startX, y: Math.min(requiredStartY, requiredEndY) }
+                firstTurn = { x: startX, y: Math.max(startY + requiredLine, endY + requiredLine) }
                 secondTurn = { x: endX, y: firstTurn.y }
                 break
             case "left":
-                firstTurn = { x: Math.min(requiredStartX, requiredEndX), y: startY }
+                firstTurn = { x: Math.min(startX - requiredLine, endX - requiredLine), y: startY }
                 secondTurn = { x: firstTurn.x, y: endY }
                 break
             case "right":
-                firstTurn = { x: Math.max(requiredStartX, requiredEndX), y: startY }
+                firstTurn = { x: Math.max(startX + requiredLine, endX + requiredLine), y: startY }
                 secondTurn = { x: firstTurn.x, y: endY }
                 break
         }
