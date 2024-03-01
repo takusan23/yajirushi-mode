@@ -31,6 +31,9 @@ export type Node = {
 /** 向きを表す */
 export type Direction = 'top' | 'bottom' | 'left' | 'right'
 
+/** 矢印をつける先。開始側、終了側、両方 */
+export type ArrowDirection = 'endSide' | 'startSide' | 'startAndEndSide'
+
 /** 2つのアイテム（ノード）を選択したら呼ばれる */
 export type SelectNodes = {
     event: 'select_node',
@@ -59,7 +62,7 @@ export type CreateArrow = {
     /** 矢印を書き始める際、右左折が必要な場合でも、この値までは真っすぐ突き進んでほしいか。 */
     requiredLine: number,
     /** 矢印の向き先。start 側につけるか、stop 側につけるか */
-    arrowDirection: 'endSide' | 'startSide'
+    arrowDirection: ArrowDirection
 }
 
 /** やり取りできる型のユニオン！ */

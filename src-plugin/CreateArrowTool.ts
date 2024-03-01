@@ -30,25 +30,28 @@ class CreateArrowTool {
 
         const lineVector = figma.createVector()
         lineVector.strokeWeight = 5
-        lineVector.vectorPaths = [{
-            windingRule: 'NONE',
-            data: svgPathData
-        }]
         lineVector.cornerRadius = 20
 
         // 矢印を追加するためには、VectorPath ではなく、VectorNetwork を使って、最後（or 最初）のストロークに矢印をつける必要があるらしい。
         // が、SVG の data を VectorNetwork にするのは面倒なので、
         // vectorPaths に入れたあとに出てくる、vectorNetwork をディープコピーして矢印をつけることにする
+        lineVector.vectorPaths = [{
+            windingRule: 'NONE',
+            data: svgPathData
+        }]
 
         // VectorNetwork を使ってストロークに矢印をつける
+        const arrowDirection = createArrow.arrowDirection
         const vertices: VectorVertex[] = lineVector.vectorNetwork.vertices
             .map((stroke, index) => {
-                if (index === 0) {
-                    return { ...stroke }
-                } else if (index === lineVector.vectorNetwork.vertices.length - 1) {
+                if (index === 0 && (arrowDirection === 'startSide' || arrowDirection === 'startAndEndSide')) {
+                    // 開始側に矢印をつける
+                    return { ...stroke, strokeCap: 'ARROW_LINES' }
+                } else if (index === lineVector.vectorNetwork.vertices.length - 1 && (arrowDirection === 'endSide' || arrowDirection === 'startAndEndSide')) {
+                    // 終了側につける
                     return { ...stroke, strokeCap: 'ARROW_LINES' }
                 } else {
-                    return { ...stroke }
+                    return stroke
                 }
             })
 

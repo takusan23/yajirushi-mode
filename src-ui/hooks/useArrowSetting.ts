@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { CreateArrow, Direction, Node, Position } from "../../src-common/MessageTypes"
+import { ArrowDirection, CreateArrow, Direction, Node, Position } from "../../src-common/MessageTypes"
 import FigmaUiMessageTool from "../tools/FigmaUiMessageTool"
 
 /** ArrowSetting コンポーネントで使うカスタムフック。ロジックをあんまり書くのもあれかなと思い、、、 */
@@ -7,6 +7,7 @@ function useArrowSetting(startNode: Node, endNode: Node) {
     const [startNodeDirection, setStartNodeDirection] = useState<Direction>('right')
     const [endNodeDirection, setEndNodeDirection] = useState<Direction>('left')
     const [requiredLine, setRequiredLine] = useState(50)
+    const [arrowDirection, setArrowDirection] = useState<ArrowDirection>('endSide')
 
     /** 矢印の線を引き始める際に、線を出すのはどの方角からか、線を受け取るのはどの方角からかを設定する。*/
     function setDirection(
@@ -31,7 +32,7 @@ function useArrowSetting(startNode: Node, endNode: Node) {
             requiredLine: requiredLine,
             startDirection: startNodeDirection,
             endDirection: endNodeDirection,
-            arrowDirection: 'endSide'
+            arrowDirection: arrowDirection
         }
         FigmaUiMessageTool.postMessage(createArrow)
     }
@@ -40,8 +41,10 @@ function useArrowSetting(startNode: Node, endNode: Node) {
         startNodeDirection,
         endNodeDirection,
         requiredLine,
+        arrowDirection,
         setDirection,
         setRequiredLine,
+        setArrowDirection,
         postCreateArrowMessage
     }
 }

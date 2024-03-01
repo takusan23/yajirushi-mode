@@ -1,7 +1,8 @@
 import { Node } from "../../src-common/MessageTypes";
-import NodeLineDirection from "./NodeLineDirection";
+import NodeLineDirection from "./setting/NodeLineDirection";
 import useArrowSetting from "../hooks/useArrowSetting";
-import RequiredLine from "./RequiredLine";
+import RequiredLine from "./setting/RequiredLine";
+import ArrowDirection from "./setting/ArrowDirection";
 
 /** ArrowSetting に渡す Props */
 type ArrowSettingProps = {
@@ -15,7 +16,16 @@ type ArrowSettingProps = {
 function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
 
     // ロジックをカスタムフックに切り出した。クソ長くなったので、、
-    const { startNodeDirection, endNodeDirection, requiredLine, setDirection, setRequiredLine, postCreateArrowMessage } = useArrowSetting(startNode, endNode)
+    const {
+        startNodeDirection,
+        endNodeDirection,
+        requiredLine,
+        arrowDirection,
+        setDirection,
+        setRequiredLine,
+        setArrowDirection,
+        postCreateArrowMessage
+    } = useArrowSetting(startNode, endNode)
 
     return (
         <div className="flex flex-col space-y-2 py-2">
@@ -30,9 +40,15 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
                 <NodeLineDirection
                     direction={endNodeDirection}
                     onChange={(direction) => setDirection(startNodeDirection, direction)} />
+            </div>
+
+            <div className="flex flex-row justify-center space-x-2">
                 <RequiredLine
                     requiredLine={requiredLine}
-                    onChange={(value) => setRequiredLine(value)} />
+                    onChange={setRequiredLine} />
+                <ArrowDirection
+                    arrowDirection={arrowDirection}
+                    onChange={setArrowDirection} />
             </div>
 
             <button
