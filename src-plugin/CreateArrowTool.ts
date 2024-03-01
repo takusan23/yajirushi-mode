@@ -8,7 +8,7 @@ class CreateArrowTool {
      * CreateArrow を元に矢印を引く
      * @param createArrow 
      */
-    static createArrow(createArrow: CreateArrow) {
+    static async createArrow(createArrow: CreateArrow) {
 
         // 線の開始、終了、折れ曲がる点を出す
         const generateRoutePositionList = DrawLineAlgorithm.generateRoute(createArrow)
@@ -24,6 +24,7 @@ class CreateArrowTool {
             .map((position, index) => `${index === 0 ? 'M' : 'L'} ${position.x} ${position.y}`)
             .join(' ')
 
+        // TODO 公開前に消す
         console.log(createArrow)
         console.log(generateRoutePositionList)
 
@@ -33,6 +34,30 @@ class CreateArrowTool {
             windingRule: 'NONE',
             data: svgPathData
         }]
+        lineVector.cornerRadius = 20
+
+        // 矢印を追加するためには、VectorPath ではなく、VectorNetwork を使って、最後（or 最初）のストロークに矢印をつける必要があるらしい。
+        // が、SVG の data を VectorNetwork にするのは面倒なので、
+        // vectorPaths に入れたあとに出てくる、vectorNetwork をディープコピーして矢印をつけることにする
+
+        // VectorNetwork を使ってストロークに矢印をつける
+        const vertices: VectorVertex[] = lineVector.vectorNetwork.vertices
+            .map((stroke, index) => {
+                if (index === 0) {
+                    return { ...stroke }
+                } else if (index === lineVector.vectorNetwork.vertices.length - 1) {
+                    return { ...stroke, strokeCap: 'ARROW_LINES' }
+                } else {
+                    return { ...stroke }
+                }
+            })
+
+        // VectorNetwork をセットする
+        await lineVector.setVectorNetworkAsync({
+            ...lineVector.vectorNetwork,
+            vertices: vertices
+        })
+
         figma.currentPage.appendChild(lineVector)
     }
 }

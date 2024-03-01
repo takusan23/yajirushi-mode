@@ -30,6 +30,7 @@ function listenUiMessage() {
       // 矢印を作る
       case 'create_arrow':
         CreateArrowTool.createArrow(message)
+          .catch(() => { console.log('err') })
         break
     }
   })
