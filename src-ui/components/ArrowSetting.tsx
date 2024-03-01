@@ -57,7 +57,7 @@ function NodeInfo({ node }: NodeInfoProps) {
             </div>
             <div className="flex flex-row space-x-2">
                 <p>位置</p>
-                <p>{`X = ${node.position.x} Y = ${node.size.height}`}</p>
+                <p>{`X = ${node.position.x} Y = ${node.position.y}`}</p>
             </div>
         </div>
     )

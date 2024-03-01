@@ -1,4 +1,5 @@
 import { CreateArrow } from "../src-common/MessageTypes"
+import DrawLineAlgorithm from "./DrawLineAlgorithm"
 
 /** 線を引くための処理 */
 class CreateArrowTool {
@@ -9,32 +10,28 @@ class CreateArrowTool {
      */
     static createArrow(createArrow: CreateArrow) {
 
-        // スタート
-        const startX = createArrow.start.x
-        const startY = createArrow.start.y
-
-        // ゴール
-        const endX = createArrow.end.x
-        const endY = createArrow.end.y
-
-        // 中間点
-        const centerX = startX + (endX - startX)
-        const centerY = startY + (endY - startY)
+        // 線の開始、終了、折れ曲がる点を出す
+        const generateRoutePositionList = DrawLineAlgorithm.generateRoute(createArrow)
+        // 出来ない場合
+        if (!generateRoutePositionList) {
+            throw Error('経路検索に失敗しました')
+        }
 
         // 線を引く
         // SVG、どうやって書こう、、、
-        const data = [
-            `M ${startX} ${startY}`,
-            `L ${centerX} ${centerY}`,
-            `L ${endX} ${endY}`
-        ].join(' ')
+        // 最初は M 、それ以降は L でいいはず？
+        const svgPathData = generateRoutePositionList
+            .map((position, index) => `${index === 0 ? 'M' : 'L'} ${position.x} ${position.y}`)
+            .join(' ')
 
-        console.log(data)
+        console.log(createArrow)
+        console.log(generateRoutePositionList)
+
         const lineVector = figma.createVector()
         lineVector.strokeWeight = 5
         lineVector.vectorPaths = [{
             windingRule: 'NONE',
-            data: data
+            data: svgPathData
         }]
         figma.currentPage.appendChild(lineVector)
     }
