@@ -6,8 +6,8 @@ class DrawLineAlgorithm {
     static generateRoute(createArrow: CreateArrow): Position[] | null {
 
         // 2点間を線で結ぶルールは上から順番にこう。
-        // start / end の X もしくは Y が同じ場合 → 真っ直ぐ。
         // start / end が同じ方向から出ている場合 → U字で繋ぐ。
+        // start / end の X もしくは Y が同じ場合 → 真っ直ぐ。
         // start / end でそれぞれ棒を伸ばして、ぶつかった場合 → 1回折れ曲がる線を書く。
         // start / end でそれぞれ棒を伸ばして、かつ中間点を取って、その点から十字の線を引き、線にぶつかれば → 2回折れ曲がる線を書く。
         // それ以外は諦める。ごめん。
@@ -24,31 +24,25 @@ class DrawLineAlgorithm {
             arrowDirection
         } = createArrow
 
-        // todo console.log 消す
-
         // 同じ方向から出る線の場合
         if (startDirection === endDirection) {
-            console.log('uLine')
             return this.uLine(createArrow)
         }
 
         // 直線でいい場合
         if (start.x == end.x || start.y == end.y) {
-            console.log('linearLine')
             return this.linearLine(createArrow)
         }
 
         // 一回の右左折で完結する場合
         const oneTurnLineOrNull = this.oneTurnLine(createArrow)
         if (oneTurnLineOrNull) {
-            console.log('oneTurnLine')
             return oneTurnLineOrNull
         }
 
         // 2回右左折する必要がある
         const twoTurnLineOrNull = this.twoTurnLine(createArrow)
         if (twoTurnLineOrNull) {
-            console.log('twoTurnLine')
             return twoTurnLineOrNull
         }
 
@@ -61,47 +55,49 @@ class DrawLineAlgorithm {
         const { x: startX, y: startY } = createArrow.start
         const { x: endX, y: endY } = createArrow.end
 
-        // ノードから真っ直ぐ確保する長さ
-        const requiredStartX = this.isNegative(createArrow.start.x) ? (createArrow.start.x - createArrow.requiredLine) : (createArrow.start.x + createArrow.requiredLine)
-        const requiredStartY = this.isNegative(createArrow.start.y) ? (createArrow.start.y - createArrow.requiredLine) : (createArrow.start.y + createArrow.requiredLine)
-        const requiredEndX = this.isNegative(createArrow.end.x) ? (createArrow.end.x - createArrow.requiredLine) : (createArrow.end.x + createArrow.requiredLine)
-        const requiredEndY = this.isNegative(createArrow.end.y) ? (createArrow.end.y - createArrow.requiredLine) : (createArrow.end.y + createArrow.requiredLine)
-
         // 中間点
-        const centerX = requiredStartX + (requiredEndX - requiredStartX)
-        const centerY = requiredStartY + (requiredEndY - requiredStartY)
+        const centerX = startX + ((endX - startX) / 2)
+        const centerY = startY + ((endY - startY) / 2)
 
         // 出発して、中間点に折れ曲がる点を出す
         let startToCenterTurnPosition: Position
         switch (createArrow.startDirection) {
             case "top":
-                startToCenterTurnPosition = { x: requiredStartX, y: centerY }
+                startToCenterTurnPosition = { x: startX, y: centerY }
+                break
             case "bottom":
-                startToCenterTurnPosition = { x: requiredStartX, y: centerY }
+                startToCenterTurnPosition = { x: startX, y: centerY }
+                break
             case "left":
-                startToCenterTurnPosition = { x: centerX, y: requiredStartY }
+                startToCenterTurnPosition = { x: centerX, y: startY }
+                break
             case "right":
-                startToCenterTurnPosition = { x: centerX, y: requiredStartY }
+                startToCenterTurnPosition = { x: centerX, y: startY }
+                break
         }
 
         // 終了側でも同じく中間点まで折れ曲がる点を
         let endToCenterTurnPosition: Position
         switch (createArrow.startDirection) {
             case "top":
-                endToCenterTurnPosition = { x: requiredEndX, y: centerY }
+                endToCenterTurnPosition = { x: endX, y: centerY }
+                break
             case "bottom":
-                endToCenterTurnPosition = { x: requiredEndX, y: centerY }
+                endToCenterTurnPosition = { x: endX, y: centerY }
+                break
             case "left":
-                endToCenterTurnPosition = { x: centerX, y: requiredEndY }
+                endToCenterTurnPosition = { x: centerX, y: endY }
+                break
             case "right":
-                endToCenterTurnPosition = { x: centerX, y: requiredEndY }
+                endToCenterTurnPosition = { x: centerX, y: endY }
+                break
         }
 
         // 中間点から縦と横に棒を伸ばして、ぶつかること
-        const centerToTopLine: Position = { x: centerX, y: Math.max(requiredStartY, requiredEndY) }
-        const centerToBottomLine: Position = { x: centerX, y: Math.min(requiredStartY, requiredEndY) }
-        const centerToLeftLine: Position = { x: Math.min(requiredStartX, requiredEndX), y: centerY }
-        const centerToRightLine: Position = { x: Math.max(requiredStartX, requiredEndX), y: centerY }
+        const centerToTopLine: Position = { x: centerX, y: Math.min(startY, endY) }
+        const centerToBottomLine: Position = { x: centerX, y: Math.min(startY, endY) }
+        const centerToLeftLine: Position = { x: Math.min(startX, endX), y: centerY }
+        const centerToRightLine: Position = { x: Math.max(startX, endX), y: centerY }
         const centerToLineList = [centerToTopLine, centerToBottomLine, centerToLeftLine, centerToRightLine]
 
         // ぶつかること
@@ -228,10 +224,6 @@ class DrawLineAlgorithm {
             secondTurn,
             { x: endX, y: endY }
         ]
-    }
-
-    private static isNegative(value: number): boolean {
-        return value < -1
     }
 
 }
