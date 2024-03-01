@@ -24,6 +24,8 @@ class DrawLineAlgorithm {
             arrowDirection
         } = createArrow
 
+        // todo console.log 消す
+
         // 同じ方向から出る線の場合
         if (startDirection === endDirection) {
             console.log('uLine')
@@ -130,25 +132,33 @@ class DrawLineAlgorithm {
         switch (createArrow.startDirection) {
             case "top":
                 startToTurnPosition = { x: startX, y: endY }
+                break
             case "bottom":
                 startToTurnPosition = { x: startX, y: endY }
+                break
             case "left":
                 startToTurnPosition = { x: endX, y: startY }
+                break
             case "right":
                 startToTurnPosition = { x: endX, y: startY }
+                break
         }
 
         // こっちでも
         let endToTurnPosition: Position
-        switch (createArrow.startDirection) {
+        switch (createArrow.endDirection) {
             case "top":
                 endToTurnPosition = { x: endX, y: startY }
+                break
             case "bottom":
                 endToTurnPosition = { x: endX, y: startY }
+                break
             case "left":
-                endToTurnPosition = { x: startY, y: endX }
+                endToTurnPosition = { x: startX, y: endY }
+                break
             case "right":
-                endToTurnPosition = { x: startY, y: endX }
+                endToTurnPosition = { x: startX, y: endY }
+                break
         }
 
         // 折れ曲がる点が開始位置から見ても、終了位置絡みても同じ場合は、一回折れ曲がることで線を結べる
@@ -156,7 +166,7 @@ class DrawLineAlgorithm {
             // 開始、折れ曲がる点、終了をセット
             return [
                 { x: startX, y: startY },
-                startToTurnPosition,
+                startToTurnPosition, // endToTurnPosition と同じです
                 { x: endX, y: endY }
             ]
         } else {
@@ -193,7 +203,7 @@ class DrawLineAlgorithm {
         // 座標系は上に向けてマイナスになるので注意
         let firstTurn: Position
         let secondTurn: Position
-        switch (createArrow.startDirection) {
+        switch (createArrow.startDirection) { // direction が同じなので start でも end でもどっちでも良い
             case "top":
                 firstTurn = { x: startX, y: Math.min(startY - requiredLine, endY - requiredLine) }
                 secondTurn = { x: endX, y: firstTurn.y }
