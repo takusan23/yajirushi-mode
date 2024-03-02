@@ -6,18 +6,18 @@ import "./App.css"
 import "./i18n"
 
 function App() {
-    const { message } = useFigmaUiMessageHook()
+    const { screenState, changeLanguage } = useFigmaUiMessageHook()
     return (
         <div className='flex flex-col bg-background-light dark:bg-background-dark'>
             {/* 一番上のバー */}
-            <TopBar />
+            <TopBar onLangChange={changeLanguage} />
 
             {
                 // 2つ図形を選んでいれば編集画面、それ以外はエラー画面
-                message?.event === 'select_node'
+                screenState.event === 'select_node'
                     ? <ArrowSetting
-                        startNode={message.startNode}
-                        endNode={message.endNode}
+                        startNode={screenState.startNode}
+                        endNode={screenState.endNode}
                     />
                     : <SelectError />
             }

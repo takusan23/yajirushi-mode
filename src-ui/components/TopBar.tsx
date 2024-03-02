@@ -3,8 +3,14 @@ import { useTranslation } from "react-i18next"
 import SettingOpenSvg from "../icons/yajirushi-mode-setting-open.svg?react"
 import SettingCloseSvg from "../icons/yajirushi-mode-setting-close.svg?react"
 
+/** TopBar に渡す Props */
+type TopBarProps = {
+    /** 言語変化時に呼ばれる */
+    onLangChange: (lang: string) => void
+}
+
 /** 一番上のバー */
-function TopBar() {
+function TopBar({ onLangChange }: TopBarProps) {
     const { t } = useTranslation()
     const [isOpenSetting, setIsOpenSetting] = useState(false)
 
@@ -25,29 +31,36 @@ function TopBar() {
                 </button>
             </div>
 
-            {isOpenSetting && <SettingList />}
+            {isOpenSetting && <SettingList onLangChange={onLangChange} />}
         </div>
     )
 }
+/** SettingList へ渡す Props */
+type SettingListProps = {
+    /** 言語変化時に呼ばれる */
+    onLangChange: (lang: string) => void
+}
 
 /** 設定UI */
-function SettingList() {
+function SettingList({ onLangChange }: SettingListProps) {
     return (
         <div className="flex flex-col">
-            <SettingChangeLanguage />
+            <SettingChangeLanguage onLangChange={onLangChange} />
             <SettingOpenSource />
             <div className="w-full border-b-[1px] border-content-light dark:border-content-dark" />
         </div>
     )
 }
 
-/** 言語選択 */
-function SettingChangeLanguage() {
-    const { t, i18n } = useTranslation()
+/** SettingChangeLanguage へ渡す Props */
+type SettingChangeLanguageProps = {
+    /** 変化時に呼ばれる */
+    onLangChange: (lang: string) => void
+}
 
-    function changeLanguage(lang: string) {
-        i18n.changeLanguage(lang)
-    }
+/** 言語選択 */
+function SettingChangeLanguage({ onLangChange }: SettingChangeLanguageProps) {
+    const { t, i18n } = useTranslation()
 
     return (
         <div className="flex flex-row p-2 items-center">
@@ -55,9 +68,9 @@ function SettingChangeLanguage() {
                 {t('topbar.setting.language.title')}
             </p>
             <select
+                className="flex-1 rounded-sm border-2 focus:outline-none border-content-light dark:border-content-dark bg-background-light dark:bg-background-dark text-content-light dark:text-content-dark"
                 value={i18n.language}
-                onChange={(ev) => changeLanguage(ev.target.value)}
-                className="flex-1">
+                onChange={(ev) => onLangChange(ev.target.value)}>
                 <option value='ja'>
                     {t('topbar.setting.language.ja')}
                 </option>

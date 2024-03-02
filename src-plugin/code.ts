@@ -37,6 +37,18 @@ function listenUiMessage() {
         CreateArrowTool.createArrow(message)
           .catch(() => { console.log('err') })
         break
+
+      // 設定内容を返す
+      case 'storage_get_request':
+        figma.clientStorage.getAsync('setting')
+          .then((setting) => FigmaPluginMessageTool.postMessage({ event: 'storage_update_response', value: setting }))
+        break
+
+      // 設定内容を保存する
+      case 'storage_set_request':
+        figma.clientStorage.setAsync('setting', message.value)
+          .then(() => FigmaPluginMessageTool.postMessage({ event: 'storage_update_response', value: message.value }))
+        break
     }
   })
 }

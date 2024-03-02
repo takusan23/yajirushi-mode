@@ -69,8 +69,29 @@ export type CreateArrow = {
     arrowDirection: ArrowDirection
 }
 
+/** Figma Plugin API の clientStorage から値をもらう。{@link StorageUpdateResponse}が来ます。 */
+export type StorageGetRequest = {
+    event: 'storage_get_request'
+}
+
+/** Figma Plugin API の clientStorage へ書き込む */
+export type StorageSetRequest = {
+    event: 'storage_set_request',
+    value: string
+}
+
+/** Figma Plugin API の clientStorage で書き込みがあったら呼ばれる */
+export type StorageUpdateResponse = {
+    event: 'storage_update_response',
+    /** 値が保存されていない場合は undefined */
+    value?: string
+}
+
 /** やり取りできる型のユニオン！ */
 export type MessageTypes =
     SelectNodes
     | UnSelectNodes
     | CreateArrow
+    | StorageGetRequest
+    | StorageSetRequest
+    | StorageUpdateResponse

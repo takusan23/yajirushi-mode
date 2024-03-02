@@ -5,7 +5,6 @@ import english from './locales/en/translation.json';
 
 // i18n を使ってローカライズ
 i18n
-    // 
     .use(initReactI18next)
     .init({
         fallbackLng: 'en',
