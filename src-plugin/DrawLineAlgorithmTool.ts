@@ -178,10 +178,10 @@ class DrawLineAlgorithmTool {
         // ゴール
         const { x: endX, y: endY } = createArrow.end
         // 中間点
-        const centerX = startX + (endX - startX)
-        const centerY = startY + (endY - startY)
+        const centerX = startX + ((endX - startX) / 2)
+        const centerY = startY + ((endY - startY) / 2)
 
-        // SVG にする都合上、多分中間点を入れないとパスが足りない？
+        // 多分中間点を入れないと、両方の側に矢印をつけるが出来ない
         return [
             { x: startX, y: startY },
             { x: centerX, y: centerY },

@@ -77,6 +77,7 @@ export type StorageGetRequest = {
 /** Figma Plugin API の clientStorage へ書き込む */
 export type StorageSetRequest = {
     event: 'storage_set_request',
+    /** 書き込む内容 */
     value: string
 }
 
