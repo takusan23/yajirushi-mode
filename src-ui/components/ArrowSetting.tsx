@@ -1,14 +1,18 @@
 import { Node } from "../../src-common/MessageTypes";
-import NodeLineDirection from "./setting/NodeLineDirection";
 import useArrowSetting from "../hooks/useArrowSetting";
 import ArrowDirection from "./setting/ArrowDirection";
 import CommonInput from "./setting/CommonInput";
+import NodeDirection from "./setting/NodeDirection";
+import LineWeightSvg from "../icons/yajirushi-mode-line-weight.svg?react";
+import CornerRadiusSvg from "../icons/yajirushi-mode-corner-radius.svg?react";
+import RequireLineSvg from "../icons/yajirushi-mode-require-line.svg?react";
+import CreateArrowSvg from "../icons/yajirushi-mode-create-arrow.svg?react";
 
 /** ArrowSetting に渡す Props */
 type ArrowSettingProps = {
-    /** 最初のアイテム */
+    /** 開始側のノード（アイテム） */
     startNode: Node,
-    /** 最初のアイテム */
+    /** 終了側のノード（アイテム） */
     endNode: Node,
 }
 
@@ -32,24 +36,15 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
     } = useArrowSetting(startNode, endNode)
 
     return (
-        <div className="flex flex-col py-2">
+        <div className="flex flex-col py-2 space-y-2">
 
             {/* 線をどの方角から出して、どの方角から受け入れるか */}
-            <div className="flex flex-col">
-                <p className="flex-1 text-base px-2 py-1">線の出入り口</p>
-                <div className="flex flex-row justify-evenly space-x-2 py-2">
-                    <NodeLineDirection
-                        index={1}
-                        nodeSize={startNode.size}
-                        direction={startNodeDirection}
-                        onChange={(direction) => setDirection(direction, endNodeDirection)} />
-                    <NodeLineDirection
-                        index={2}
-                        nodeSize={endNode.size}
-                        direction={endNodeDirection}
-                        onChange={(direction) => setDirection(startNodeDirection, direction)} />
-                </div>
-            </div>
+            <NodeDirection
+                startNodeSize={startNode.size}
+                startNodeDirection={startNodeDirection}
+                endNodeSize={endNode.size}
+                endNodeDirection={endNodeDirection}
+                onChange={setDirection} />
 
             <div className="flex flex-col px-2">
                 <ArrowDirection
@@ -58,22 +53,26 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
                 <CommonInput
                     title="線の太さ"
                     value={lineWeight}
+                    icon={<LineWeightSvg />}
                     onChange={setLineWeight} />
                 <CommonInput
                     title="角丸"
                     description="角の半径です"
+                    icon={<CornerRadiusSvg />}
                     value={cornerRadius}
                     onChange={setCornerRadius} />
                 <CommonInput
                     title="直線最低値"
                     description="線が折れ曲がる際に、折れ曲がるまでの距離。"
+                    icon={<RequireLineSvg />}
                     value={requiredLine}
                     onChange={setRequiredLine} />
             </div>
 
             <button
-                className="rounded-md border-blue-300 border-2 mx-5"
+                className="flex flex-row justify-center items-center rounded-md border-blue-300 border-2 mx-5"
                 onClick={() => postCreateArrowMessage()}>
+                <CreateArrowSvg />
                 矢印を作る
             </button>
         </div>
