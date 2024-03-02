@@ -1,0 +1,17 @@
+{
+    "selecterror.message": "No shapes are selected.",
+    "selecterror.description": "Try selecting them one by one or slowly.",
+    "arrowsetting.lineweight.title": "line weight",
+    "arrowsetting.cornerradius.title": "Rounded corners",
+    "arrowsetting.cornerradius.description": "is the radius of the corner.",
+    "arrowsetting.requireline,title": "Linear minimum value",
+    "arrowsetting.requireline.description": "If a right or left turn is required, the distance to make the turn.",
+    "createbutton.text": "make an arrow",
+    "arrowsetting.arrowdirection.title": "direction of arrow",
+    "arrowsetting.nodedirection.title": "direction to draw the line",
+    "topbar.title": "Yajirushi MODE",
+    "topbar.setting.language.title": "言語 / Language",
+    "topbar.setting.language.ja": "日本語 Japanese",
+    "topbar.setting.language.en": "英語 English",
+    "topbar.setting.github": "Yajirushi MODE View source code (GitHub)"
+}

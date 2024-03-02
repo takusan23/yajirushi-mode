@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import { useTranslation } from "react-i18next";
 import { ArrowDirection } from "../../../src-common/MessageTypes"
 import ArrowDirectionStartSideSvg from "../../icons/yajirushi-mode-arrow-direction-start-side.svg?react"
 import ArrowDirectionEndSide from "../../icons/yajirushi-mode-arrow-direction-end-side.svg?react"
@@ -25,12 +26,18 @@ type ArrowDirectionProps = {
 
 /** 矢印を開始側につけるか、終了側につけるのか、設定する */
 function ArrowDirection({ arrowDirection, onChange }: ArrowDirectionProps) {
+    const { t } = useTranslation()
+
     return (
         <div className="flex flex-row items-center p-1 space-x-1">
             <ArrowDirectionStartSideSvg className="svg-color" />
-            <p className="flex-1 text-base text-content-light dark:text-content-dark">矢印の向き</p>
+            <p className="flex-1 text-base text-content-light dark:text-content-dark">
+                {t('arrowsetting.arrowdirection.title')}
+            </p>
             <div className="flex-1">
-                <ArrowDirectionSelection current={arrowDirection} onChange={onChange} />
+                <ArrowDirectionSelection
+                    current={arrowDirection}
+                    onChange={onChange} />
             </div>
         </div>
     )

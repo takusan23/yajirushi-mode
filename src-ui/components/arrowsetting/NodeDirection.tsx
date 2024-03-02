@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next"
 import { Direction, Size } from "../../../src-common/MessageTypes"
 import NodeLineDirection from "./NodeLineDirection"
 import DirectionSvg from "../../icons/yajirushi-mode-direction.svg?react"
@@ -18,11 +19,15 @@ type NodeDirectionProps = {
 
 /** どこから線を出して入れるか */
 function NodeDirection({ startNodeSize, startNodeDirection, endNodeSize, endNodeDirection, onChange }: NodeDirectionProps) {
+    const { t } = useTranslation()
+
     return (
         <div className="flex flex-col">
-            <div className="flex flec-row items-center px-2 py-1 space-x-1">
+            <div className="flex flec-row items-center px-3 py-1 space-x-1">
                 <DirectionSvg className="svg-color" />
-                <p className="flex-1 text-base text-content-light dark:text-content-dark">線の出入り口</p>
+                <p className="flex-1 text-base text-content-light dark:text-content-dark">
+                    {t('arrowsetting.nodedirection.title')}
+                </p>
             </div>
             <div className="flex flex-row justify-evenly space-x-2 py-2">
                 <NodeLineDirection

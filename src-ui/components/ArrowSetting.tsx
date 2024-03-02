@@ -1,8 +1,9 @@
+import { useTranslation } from "react-i18next";
 import { Node } from "../../src-common/MessageTypes";
 import useArrowSetting from "../hooks/useArrowSetting";
-import ArrowDirection from "./setting/ArrowDirection";
-import CommonInput from "./setting/CommonInput";
-import NodeDirection from "./setting/NodeDirection";
+import ArrowDirection from "./arrowsetting/ArrowDirection";
+import CommonInput from "./arrowsetting/CommonInput";
+import NodeDirection from "./arrowsetting/NodeDirection";
 import LineWeightSvg from "../icons/yajirushi-mode-line-weight.svg?react";
 import CornerRadiusSvg from "../icons/yajirushi-mode-corner-radius.svg?react";
 import RequireLineSvg from "../icons/yajirushi-mode-require-line.svg?react";
@@ -18,6 +19,8 @@ type ArrowSettingProps = {
 
 /** 矢印の設定コンポーネント */
 function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
+    // i18next
+    const { t } = useTranslation()
 
     // ロジックをカスタムフックに切り出した。クソ長くなったので、、
     const {
@@ -51,19 +54,19 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
                     arrowDirection={arrowDirection}
                     onChange={setArrowDirection} />
                 <CommonInput
-                    title="線の太さ"
+                    title={t('arrowsetting.lineweight.title')}
                     value={lineWeight}
                     icon={<LineWeightSvg className="svg-color" />}
                     onChange={setLineWeight} />
                 <CommonInput
-                    title="角丸"
-                    description="角の半径です"
+                    title={t('arrowsetting.cornerradius.title')}
+                    description={t('arrowsetting.cornerradius.description')}
                     icon={<CornerRadiusSvg className="svg-color" />}
                     value={cornerRadius}
                     onChange={setCornerRadius} />
                 <CommonInput
-                    title="直線最低値"
-                    description="線が折れ曲がる際に、折れ曲がるまでの距離。"
+                    title={t('arrowsetting.requireline,title')}
+                    description={t('arrowsetting.requireline.description')}
                     icon={<RequireLineSvg className="svg-color" />}
                     value={requiredLine}
                     onChange={setRequiredLine} />
