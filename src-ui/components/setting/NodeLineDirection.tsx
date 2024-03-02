@@ -15,11 +15,11 @@ type NodeLineDirectionProps = {
 /** アイテム（ノードの）東西南北どこから線を引き始める・終わるかを設定する */
 function NodeLineDirection({ index, nodeSize, direction, onChange }: NodeLineDirectionProps) {
     return (
-        <div className="relative aspect-square w-1/3 border-black border-2">
+        <div className="relative aspect-square w-1/3 border-2 border-primary-light dark:border-primary-dark">
 
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <p>{`${index}`}</p>
-                <p>{`${nodeSize.width}x${nodeSize.height}`}</p>
+                <p className="text-content-light dark:text-content-dark">{`${index}`}</p>
+                <p className="text-content-light dark:text-content-dark">{`${nodeSize.width}x${nodeSize.height}`}</p>
             </div>
 
             {/* それぞれの方角で */}
@@ -60,7 +60,7 @@ function DirectionButton({ direction, isSelect, onClick }: DirectionButtonProps)
             break
     }
     // 選択中なら色を変える
-    const selectStyle = isSelect ? 'bg-blue-500' : 'bg-gray-500'
+    const selectStyle = isSelect ? 'bg-primary-light dark:bg-primary-dark' : 'bg-content-light dark:bg-content-dark'
 
     return (
         <div className={`absolute ${positionStyle} flex items-center justify-center`} >

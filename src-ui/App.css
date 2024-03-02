@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* SVG の色を置き換える */
+
+.svg-color path {
+    @apply !stroke-content-light dark:!stroke-content-dark;
+}
+
+.svg-color ellipse {
+    @apply !stroke-content-light dark:!stroke-content-dark;
+}
+
+.svg-color rect[style*="stroke: rgb(0, 0, 0)"] {
+    @apply !stroke-content-light dark:!stroke-content-dark;
+}
+
+.svg-color rect[style*="fill: rgb(0, 0, 0)"] {
+    @apply !fill-content-light dark:!fill-content-dark;
+}
+
+.svg-color circle[style*="stroke: rgb(0, 0, 0)"] {
+    @apply !stroke-content-light dark:!stroke-content-dark;
+}
+
+.svg-color circle[style*="fill: rgb(0, 0, 0)"] {
+    @apply !fill-content-light dark:!fill-content-dark;
+}

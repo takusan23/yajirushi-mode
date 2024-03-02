@@ -7,6 +7,7 @@ import LineWeightSvg from "../icons/yajirushi-mode-line-weight.svg?react";
 import CornerRadiusSvg from "../icons/yajirushi-mode-corner-radius.svg?react";
 import RequireLineSvg from "../icons/yajirushi-mode-require-line.svg?react";
 import CreateArrowSvg from "../icons/yajirushi-mode-create-arrow.svg?react";
+import CreateButton from "./CreateButton";
 
 /** ArrowSetting に渡す Props */
 type ArrowSettingProps = {
@@ -53,47 +54,23 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
                 <CommonInput
                     title="線の太さ"
                     value={lineWeight}
-                    icon={<LineWeightSvg />}
+                    icon={<LineWeightSvg className="svg-color" />}
                     onChange={setLineWeight} />
                 <CommonInput
                     title="角丸"
                     description="角の半径です"
-                    icon={<CornerRadiusSvg />}
+                    icon={<CornerRadiusSvg className="svg-color" />}
                     value={cornerRadius}
                     onChange={setCornerRadius} />
                 <CommonInput
                     title="直線最低値"
                     description="線が折れ曲がる際に、折れ曲がるまでの距離。"
-                    icon={<RequireLineSvg />}
+                    icon={<RequireLineSvg className="svg-color" />}
                     value={requiredLine}
                     onChange={setRequiredLine} />
             </div>
 
-            <button
-                className="flex flex-row justify-center items-center rounded-md border-blue-300 border-2 mx-5"
-                onClick={() => postCreateArrowMessage()}>
-                <CreateArrowSvg />
-                矢印を作る
-            </button>
-        </div>
-    )
-}
-
-type NodeInfoProps = {
-    node: Node
-}
-
-function NodeInfo({ node }: NodeInfoProps) {
-    return (
-        <div className="flex flex-col">
-            <div className="flex flex-row space-x-2">
-                <p>サイズ</p>
-                <p>{`${node.size.width} x ${node.size.height}`}</p>
-            </div>
-            <div className="flex flex-row space-x-2">
-                <p>位置</p>
-                <p>{`X = ${node.position.x} Y = ${node.position.y}`}</p>
-            </div>
+            <CreateButton onClick={() => postCreateArrowMessage()} />
         </div>
     )
 }

@@ -21,8 +21,8 @@ function NodeDirection({ startNodeSize, startNodeDirection, endNodeSize, endNode
     return (
         <div className="flex flex-col">
             <div className="flex flec-row items-center px-2 py-1 space-x-1">
-                <DirectionSvg />
-                <p className="flex-1 text-base">線の出入り口</p>
+                <DirectionSvg className="svg-color" />
+                <p className="flex-1 text-base text-content-light dark:text-content-dark">線の出入り口</p>
             </div>
             <div className="flex flex-row justify-evenly space-x-2 py-2">
                 <NodeLineDirection

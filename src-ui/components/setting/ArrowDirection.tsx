@@ -10,9 +10,9 @@ type LabelData = {
 }
 
 const LabelArrowDirectionPair: LabelData[] = [
-    { arrowDirection: 'startSide', children: <ArrowDirectionStartSideSvg /> },
-    { arrowDirection: 'endSide', children: <ArrowDirectionEndSide /> },
-    { arrowDirection: 'startAndEndSide', children: <ArrowDirectionStartEndSide /> },
+    { arrowDirection: 'startSide', children: <ArrowDirectionStartSideSvg className="svg-color" /> },
+    { arrowDirection: 'endSide', children: <ArrowDirectionEndSide className="svg-color" /> },
+    { arrowDirection: 'startAndEndSide', children: <ArrowDirectionStartEndSide className="svg-color" /> },
 ]
 
 /** ArrowDirection へ渡す Props */
@@ -27,8 +27,8 @@ type ArrowDirectionProps = {
 function ArrowDirection({ arrowDirection, onChange }: ArrowDirectionProps) {
     return (
         <div className="flex flex-row items-center p-1 space-x-1">
-            <ArrowDirectionStartSideSvg />
-            <p className="flex-1 text-base">矢印の向き</p>
+            <ArrowDirectionStartSideSvg className="svg-color" />
+            <p className="flex-1 text-base text-content-light dark:text-content-dark">矢印の向き</p>
             <div className="flex-1">
                 <ArrowDirectionSelection current={arrowDirection} onChange={onChange} />
             </div>
@@ -51,7 +51,7 @@ function ArrowDirectionSelection({ current, onChange }: ArrowDirectionSelectionP
             {
                 LabelArrowDirectionPair.map((labelData) => {
                     // 選択中の場合は枠の色を変える
-                    const selectStyle = labelData.arrowDirection === current ? 'border-blue-500 border-2' : 'border-gray-500 border-[1px]'
+                    const selectStyle = labelData.arrowDirection === current ? 'border-primary-light dark:border-primary-dark border-4' : 'border-content-light dark:border-content-dark border-[1px]'
                     return (
                         <button
                             className={`flex-1 p-1 aspect-square ${selectStyle} cursor-pointer`}

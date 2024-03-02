@@ -17,7 +17,10 @@ function main() {
   // React で作った画面 src-ui/index.html を表示する
   // 吐き出し先は dist/index.html です
   // サイズが小さいので縦伸ばしておく
-  figma.showUI(__html__, { height: 400 })
+  figma.showUI(__html__, {
+    themeColors: true,
+    height: 400
+  })
 
   // イベントを購読
   listenUiMessage()

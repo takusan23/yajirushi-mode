@@ -20,11 +20,11 @@ function CommonInput({ title, description, icon, value, onChange }: CommonInputP
         <div className="flex flex-row items-center p-1 space-x-1">
             {icon}
             <div className="flex-1 flex flex-col">
-                <p className="flex-1 text-base">{title}</p>
-                {description && <p className="flex-1 text-sm">{description}</p>}
+                <p className="flex-1 text-base text-content-light dark:text-content-dark">{title}</p>
+                {description && <p className="flex-1 text-sm text-content-light dark:text-content-dark">{description}</p>}
             </div>
             <input
-                className="flex-1 min-w-0 pl-2 rounded-sm border-gray-500 border-[1px] focus:outline-none"
+                className="flex-1 min-w-0 pl-2 rounded-sm border-2 focus:outline-none border-content-light dark:border-content-dark bg-background-light dark:bg-background-dark text-content-light dark:text-content-dark"
                 type="number"
                 value={value}
                 onChange={(ev) => onChange(Number(ev.target.value))}
