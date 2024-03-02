@@ -35,17 +35,20 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
         <div className="flex flex-col py-2">
 
             {/* 線をどの方角から出して、どの方角から受け入れるか */}
-            <div className="flex flex-row justify-evenly space-x-2 py-2">
-                <NodeLineDirection
-                    index={1}
-                    nodeSize={startNode.size}
-                    direction={startNodeDirection}
-                    onChange={(direction) => setDirection(direction, endNodeDirection)} />
-                <NodeLineDirection
-                    index={2}
-                    nodeSize={endNode.size}
-                    direction={endNodeDirection}
-                    onChange={(direction) => setDirection(startNodeDirection, direction)} />
+            <div className="flex flex-col">
+                <p className="flex-1 text-base px-2 py-1">線の出入り口</p>
+                <div className="flex flex-row justify-evenly space-x-2 py-2">
+                    <NodeLineDirection
+                        index={1}
+                        nodeSize={startNode.size}
+                        direction={startNodeDirection}
+                        onChange={(direction) => setDirection(direction, endNodeDirection)} />
+                    <NodeLineDirection
+                        index={2}
+                        nodeSize={endNode.size}
+                        direction={endNodeDirection}
+                        onChange={(direction) => setDirection(startNodeDirection, direction)} />
+                </div>
             </div>
 
             <div className="flex flex-col px-2">
@@ -63,7 +66,7 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
                     onChange={setCornerRadius} />
                 <CommonInput
                     title="直線最低値"
-                    description="線が折れ曲がる際に、どれぐらい伸ばしてから折れ曲がるかです。"
+                    description="線が折れ曲がる際に、折れ曲がるまでの距離。"
                     value={requiredLine}
                     onChange={setRequiredLine} />
             </div>

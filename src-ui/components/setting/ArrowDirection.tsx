@@ -6,8 +6,8 @@ type LabelData = {
 }
 
 const LabelArrowDirectionPair: LabelData[] = [
-    { label: '■←', arrowDirection: 'startSide' },
-    { label: '→■', arrowDirection: 'endSide' },
+    { label: '①←', arrowDirection: 'startSide' },
+    { label: '→②', arrowDirection: 'endSide' },
     { label: '←→', arrowDirection: 'startAndEndSide' }
 ]
 
