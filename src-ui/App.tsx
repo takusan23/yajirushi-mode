@@ -7,7 +7,7 @@ function App() {
     const { message } = useFigmaUiMessageHook()
 
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col bg-background-light dark:bg-background-dark'>
             {/* <Title /> 出すスペースがない... */}
             {
                 message?.event === 'select_node'

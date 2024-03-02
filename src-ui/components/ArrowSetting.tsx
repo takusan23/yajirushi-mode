@@ -6,7 +6,6 @@ import NodeDirection from "./setting/NodeDirection";
 import LineWeightSvg from "../icons/yajirushi-mode-line-weight.svg?react";
 import CornerRadiusSvg from "../icons/yajirushi-mode-corner-radius.svg?react";
 import RequireLineSvg from "../icons/yajirushi-mode-require-line.svg?react";
-import CreateArrowSvg from "../icons/yajirushi-mode-create-arrow.svg?react";
 import CreateButton from "./CreateButton";
 
 /** ArrowSetting に渡す Props */
