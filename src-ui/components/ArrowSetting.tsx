@@ -1,10 +1,8 @@
 import { Node } from "../../src-common/MessageTypes";
 import NodeLineDirection from "./setting/NodeLineDirection";
 import useArrowSetting from "../hooks/useArrowSetting";
-import RequiredLine from "./setting/RequiredLine";
 import ArrowDirection from "./setting/ArrowDirection";
-import LineWeight from "./setting/LineWeight";
-import CornerRadius from "./setting/CornerRadius";
+import CommonInput from "./setting/CommonInput";
 
 /** ArrowSetting に渡す Props */
 type ArrowSettingProps = {
@@ -34,7 +32,7 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
     } = useArrowSetting(startNode, endNode)
 
     return (
-        <div className="flex flex-col space-y-2 py-2">
+        <div className="flex flex-col py-2">
 
             {/* 線をどの方角から出して、どの方角から受け入れるか */}
             <div className="flex flex-row justify-evenly space-x-2 py-2">
@@ -50,19 +48,24 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
                     onChange={(direction) => setDirection(startNodeDirection, direction)} />
             </div>
 
-            <div className="flex flex-col space-y-2 px-2">
-                <RequiredLine
-                    requiredLine={requiredLine}
-                    onChange={setRequiredLine} />
+            <div className="flex flex-col px-2">
                 <ArrowDirection
                     arrowDirection={arrowDirection}
                     onChange={setArrowDirection} />
-                <LineWeight
-                    lineWeight={lineWeight}
+                <CommonInput
+                    title="線の太さ"
+                    value={lineWeight}
                     onChange={setLineWeight} />
-                <CornerRadius
-                    cornerRadius={cornerRadius}
+                <CommonInput
+                    title="角丸"
+                    description="角の半径です"
+                    value={cornerRadius}
                     onChange={setCornerRadius} />
+                <CommonInput
+                    title="直線最低値"
+                    description="線が折れ曲がる際に、どれぐらい伸ばしてから折れ曲がるかです。"
+                    value={requiredLine}
+                    onChange={setRequiredLine} />
             </div>
 
             <button

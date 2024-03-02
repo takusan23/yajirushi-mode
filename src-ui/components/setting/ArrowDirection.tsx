@@ -22,8 +22,8 @@ type ArrowDirectionProps = {
 /** 矢印を開始側につけるか、終了側につけるのか、設定する */
 function ArrowDirection({ arrowDirection, onChange }: ArrowDirectionProps) {
     return (
-        <div className="flex flex-row  items-center p-2">
-            <p className="flex-1 text-lg">矢印の向き</p>
+        <div className="flex flex-row items-center p-1 space-x-1">
+            <p className="flex-1 text-base">矢印の向き</p>
             <div className="flex-1">
                 <ArrowDirectionSelection current={arrowDirection} onChange={onChange} />
             </div>
