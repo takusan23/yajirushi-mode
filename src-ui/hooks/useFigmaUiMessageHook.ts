@@ -31,7 +31,7 @@ function useFigmaUiMessageHook() {
 
                 // 設定内容を受け取る
                 case 'storage_update_response':
-                    const latestSetting = receiveMessage.value ? JSON.parse(receiveMessage.value) : {}
+                    const latestSetting = JSON.parse(receiveMessage.value)
                     setSetting(latestSetting)
                     // 言語選択
                     i18n.changeLanguage(latestSetting.language)
@@ -49,7 +49,7 @@ function useFigmaUiMessageHook() {
             ...setting,
             language: lang
         }
-        FigmaUiMessageTool.postMessage({ event: 'storage_set_request', value: JSON.stringify(updatedSetting) })
+        applySetting(updatedSetting)
     }
 
     /** 矢印線を描画するように Figma Plugin API 側に投げる */
@@ -68,13 +68,24 @@ function useFigmaUiMessageHook() {
                 arrowDirection: createArrow.arrowDirection
             }
         }
-        FigmaUiMessageTool.postMessage({ event: 'storage_set_request', value: JSON.stringify(updatedSetting) })
+        applySetting(updatedSetting)
+    }
+
+    /** 設定をリセットする */
+    function resetSetting() {
+        applySetting({})
+    }
+
+    /** 設定内容を永続化する */
+    function applySetting(setting: Setting) {
+        FigmaUiMessageTool.postMessage({ event: 'storage_set_request', value: JSON.stringify(setting) })
     }
 
     return {
         screenState,
         setting,
         changeLanguage,
+        resetSetting,
         postCreateArrow
     }
 }

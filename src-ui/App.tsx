@@ -6,11 +6,13 @@ import "./App.css"
 import "./i18n"
 
 function App() {
-    const { screenState, setting, changeLanguage, postCreateArrow } = useFigmaUiMessageHook()
+    const { screenState, setting, changeLanguage, resetSetting, postCreateArrow } = useFigmaUiMessageHook()
     return (
-        <div className='flex flex-col bg-background-light dark:bg-background-dark'>
+        <div className='flex flex-col'>
             {/* 一番上のバー */}
-            <TopBar onLangChange={changeLanguage} />
+            <TopBar
+                onLangChange={changeLanguage}
+                onSettingReset={resetSetting} />
 
             {
                 // 2つ図形を選んでいれば編集画面、それ以外はエラー画面

@@ -13,7 +13,7 @@ function CreateButton({ onClick }: CreateButtonProps) {
 
     return (
         <button
-            className="flex flex-row justify-center items-center rounded-md mx-5 border-4 border-primary-light dark:border-primary-dark text-content-light dark:text-content-dark"
+            className="flex flex-row justify-center items-center rounded-full mx-5 border-4 border-primary-light dark:border-primary-dark text-content-light dark:text-content-dark"
             onClick={onClick}>
             <CreateArrowSvg className="svg-color" />
             {t('createbutton.text')}

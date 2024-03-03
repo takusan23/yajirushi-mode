@@ -41,7 +41,7 @@ function listenUiMessage() {
       // 設定内容を返す
       case 'storage_get_request':
         figma.clientStorage.getAsync('setting')
-          .then((setting) => FigmaPluginMessageTool.postMessage({ event: 'storage_update_response', value: setting }))
+          .then((setting) => FigmaPluginMessageTool.postMessage({ event: 'storage_update_response', value: setting ?? '{}' }))
         break
 
       // 設定内容を保存する

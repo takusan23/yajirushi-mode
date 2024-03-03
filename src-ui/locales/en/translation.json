@@ -13,5 +13,6 @@
     "topbar.setting.language.title": "言語 / Language",
     "topbar.setting.language.ja": "日本語 Japanese",
     "topbar.setting.language.en": "英語 English",
-    "topbar.setting.github": "Yajirushi MODE View source code (GitHub)"
+    "topbar.setting.github": "Yajirushi MODE View source code (GitHub)",
+    "topbar.setting.resetsetting": "Reset settings"
 }

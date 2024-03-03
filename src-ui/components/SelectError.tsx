@@ -6,7 +6,7 @@ function SelectError() {
     const { t } = useTranslation()
     return (
         <div className="flex flex-col space-y-2 p-2 items-center justify-center text-center">
-            <ErrorSvg className="w-full h-1/3 svg-color" />
+            <ErrorSvg className="w-full h-auto aspect-[2/1] svg-color" />
             <p className="text-lg text-red-500">
                 {t('selecterror.message')}
             </p>

@@ -84,8 +84,8 @@ export type StorageSetRequest = {
 /** Figma Plugin API の clientStorage で書き込みがあったら呼ばれる */
 export type StorageUpdateResponse = {
     event: 'storage_update_response',
-    /** 値が保存されていない場合は undefined */
-    value?: string
+    /** 値が保存されていない場合は {} */
+    value: string
 }
 
 /** やり取りできる型のユニオン！ */
