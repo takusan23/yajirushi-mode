@@ -25,8 +25,8 @@ class CreateArrowTool {
             .join(' ')
 
         // TODO 公開前に消す
-        console.log(createArrow)
-        console.log(generateRoutePositionList)
+        // console.log(createArrow)
+        // console.log(generateRoutePositionList)
 
         const lineVector = figma.createVector()
         lineVector.strokeWeight = createArrow.lineWeight

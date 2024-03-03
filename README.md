@@ -1,40 +1,61 @@
-Below are the steps to get your plugin running. You can also find instructions at:
+# やじるしMODE
+選んだ2つの図形（図形じゃなくてもいい）の間に矢印をいい感じに書いてくれる`Figma プラグイン`です。  
 
-  https://www.figma.com/plugin-docs/plugin-quickstart-guide/
+![Imgur](https://imgur.com/bHUDpVL.png)
 
-This plugin template uses Typescript and NPM, two standard tools in creating JavaScript applications.
+![Imgur](https://imgur.com/7X0vFX9.png)
 
-First, download Node.js which comes with NPM. This will allow you to install TypeScript and other
-libraries. You can find the download link here:
+![Imgur](https://imgur.com/VVY9R0a.png)
 
-  https://nodejs.org/en/download/
+![Imgur](https://imgur.com/jqBZhaj.png)
 
-Next, install TypeScript using the command:
+# ダウンロード
+// todo
 
-  npm install -g typescript
+# 開発環境構築
 
-Finally, in the directory of your plugin, get the latest type definitions for the plugin API by running:
+## 公式の説明
+https://www.figma.com/plugin-docs/plugin-quickstart-guide/
 
-  npm install --save-dev @figma/plugin-typings
+## 必要なもの
+- `Figma`デスクトップアプリ
+- `Node.js`
+- `Visual Studio Code`等のテキストエディタ
 
-If you are familiar with JavaScript, TypeScript will look very familiar. In fact, valid JavaScript code
-is already valid Typescript code.
+## セットアップ
+- リポジトリを`git clone`するなり、ソースコードを`zip`でダウンロードするなりして、ソースコードを入手する
+- ダウンロードしたソースコードをターミナル（`cmd`、`PowerShell`等）で開き、以下のコマンドを叩いてください
+  - `npm i`
+- ビルドする。これはソースコードを`Figma`でプラグインとして読み込む際に必要です
+  - ビルドコマンドは以下です。叩いてください
+    - `npm run build`
+- `Figma`デスクトップアプリを開いて読み込む
+  - 適当な`Figma デザイン`（デザインの方だけ動きます）を開き
+  - 左上の`Figma のロゴ`を押し、`プラグイン`→`開発`→`マニフェストからプラグインを...`を押して
+  - このソースコード内にある、`manifest.json`を読み込む
+- プラグインが開くはず
 
-TypeScript adds type annotations to variables. This allows code editors such as Visual Studio Code
-to provide information about the Figma API while you are writing code, as well as help catch bugs
-you previously didn't notice.
+## 開発メモ
+`TypeScript`で書いています。  
+ソースコードを変更したら、その都度ビルドコマンドを叩く必要があります。
 
-For more information, visit https://www.typescriptlang.org/
+### UI側（ウィンドウ側、ユーザーが入力する側）
+`UI側`ですが、`HTML / CSS / JavaScript`で書くのは普通にしんどいので、それぞれ以下の技術を使っています。  
 
-Using TypeScript requires a compiler to convert TypeScript (code.ts) into JavaScript (code.js)
-for the browser to run.
+- `React`
+  - エントリーポイントは`src-ui/main.tsx`です（`Vite`なので`index.html`もあります）
+  - `App.tsx`から下をいじっていくことになるのかな
+- `Tailwind CSS`
+  - `CSS`書きたくないので、`Tailwind CSS`で見た目を整えてます
+- `Vite`
+  - `webpack`でも良かったけど使ってみたかった
+  - とても速い！
+  - プラグインを使ったので、一つの`index.html`にまとめてくれます（そうしないといけない）
 
-We recommend writing TypeScript code using Visual Studio code:
+そんなに難しいことはしていないハズ（雑だとは思う）
 
-1. Download Visual Studio Code if you haven't already: https://code.visualstudio.com/.
-2. Open this directory in Visual Studio Code.
-3. Compile TypeScript to JavaScript: Run the "Terminal > Run Build Task..." menu item,
-    then select "npm: watch". You will have to do this again every time
-    you reopen Visual Studio Code.
+### プラグイン側（UI じゃない方）
+`esbuild`でビルドしています。めっっっっちゃ速い。  
+型チェックはしてくれないので、`npm run tsc`で型チェックが出来ます（`--noEmit`）
 
-That's it! Visual Studio Code will regenerate the JavaScript file every time you save.
+あと、`Figma Plugin`は`ES6+`？までの言語機能しか無いので、`ES6`でも動くように引数を設定しています。

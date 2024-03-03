@@ -35,7 +35,7 @@ function listenUiMessage() {
       // 矢印を作る
       case 'create_arrow':
         CreateArrowTool.createArrow(message)
-          .catch(() => { console.log('err') })
+          .catch(() => { /* 多分こないかも */ })
         break
 
       // 設定内容を返す
