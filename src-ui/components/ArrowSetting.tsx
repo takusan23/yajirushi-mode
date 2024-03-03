@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Node } from "../../src-common/MessageTypes";
+import { CreateArrow, Node } from "../../src-common/MessageTypes";
 import useArrowSetting from "../hooks/useArrowSetting";
 import ArrowDirection from "./arrowsetting/ArrowDirection";
 import CommonInput from "./arrowsetting/CommonInput";
@@ -8,17 +8,22 @@ import LineWeightSvg from "../icons/yajirushi-mode-line-weight.svg?react";
 import CornerRadiusSvg from "../icons/yajirushi-mode-corner-radius.svg?react";
 import RequireLineSvg from "../icons/yajirushi-mode-require-line.svg?react";
 import CreateButton from "./CreateButton";
+import { ArrowSetting } from "../Setting";
 
 /** ArrowSetting に渡す Props */
 type ArrowSettingProps = {
+    /** 設定内容、前回のパラメーターを引き継ぐ */
+    arrowSetting?: ArrowSetting,
     /** 開始側のノード（アイテム） */
     startNode: Node,
     /** 終了側のノード（アイテム） */
     endNode: Node,
+    /** 矢印書いて欲しい時に呼ばれる */
+    onCreateArrowRequest: (createArrow: CreateArrow) => void
 }
 
 /** 矢印の設定コンポーネント */
-function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
+function ArrowSetting({ arrowSetting, startNode, endNode, onCreateArrowRequest }: ArrowSettingProps) {
     // i18next
     const { t } = useTranslation()
 
@@ -37,7 +42,7 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
         setLineWeight,
         setCornerRadius,
         postCreateArrowMessage
-    } = useArrowSetting(startNode, endNode)
+    } = useArrowSetting(startNode, endNode, onCreateArrowRequest, arrowSetting)
 
     return (
         <div className="flex flex-col py-2 space-y-2">

@@ -6,14 +6,18 @@ import DirectionSvg from "../../icons/yajirushi-mode-direction.svg?react"
 /** 縦並び */
 type SelectNodeVertical = {
     orientation: 'vertical',
+    /** 上側に start / end どっちのノード（アイテム）が来ているか */
     top: 'start' | 'end',
+    /** 下側に start / end どっちのノード（アイテム）が来ているか */
     bottom: 'start' | 'end'
 }
 
 /** 横並び */
 type SelectNodeHorizontal = {
     orientation: 'horizontal',
+    /** 左側に start / end どっちのノード（アイテム）が来ているか */
     left: 'start' | 'end',
+    /** 右側に start / end どっちのノード（アイテム）が来ているか */
     right: 'start' | 'end'
 }
 

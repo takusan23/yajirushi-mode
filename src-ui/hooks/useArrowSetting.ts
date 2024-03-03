@@ -1,16 +1,32 @@
 import { useEffect, useState } from "react"
 import { ArrowDirection, CreateArrow, Direction, Node, Position } from "../../src-common/MessageTypes"
-import FigmaUiMessageTool from "../tools/FigmaUiMessageTool"
 import { SelectNodeOrientation } from "../components/arrowsetting/NodeDirection"
+import { ArrowSetting } from "../Setting"
+
+/** ArrowSetting のデフォルト値 */
+const DefaultArrowSetting: ArrowSetting = {
+    startDirection: 'right',
+    endDirection: 'left',
+    requiredLine: 50,
+    lineWeight: 10,
+    cornerRadius: 25,
+    arrowDirection: 'endSide'
+}
 
 /** ArrowSetting コンポーネントで使うカスタムフック。ロジックをあんまり書くのもあれかなと思い、、、 */
-function useArrowSetting(startNode: Node, endNode: Node) {
-    const [startNodeDirection, setStartNodeDirection] = useState<Direction>('right')
-    const [endNodeDirection, setEndNodeDirection] = useState<Direction>('left')
-    const [requiredLine, setRequiredLine] = useState(50)
-    const [arrowDirection, setArrowDirection] = useState<ArrowDirection>('endSide')
-    const [lineWeight, setLineWeight] = useState(10)
-    const [cornerRadius, setCornerRadius] = useState(25)
+function useArrowSetting(
+    startNode: Node,
+    endNode: Node,
+    onCreateArrowRequest: (createArrow: CreateArrow) => void,
+    arrowSetting?: ArrowSetting
+) {
+    const settingOrDefault = arrowSetting ?? DefaultArrowSetting
+    const [startNodeDirection, setStartNodeDirection] = useState<Direction>(settingOrDefault.startDirection)
+    const [endNodeDirection, setEndNodeDirection] = useState<Direction>(settingOrDefault.endDirection)
+    const [requiredLine, setRequiredLine] = useState(settingOrDefault.requiredLine)
+    const [arrowDirection, setArrowDirection] = useState<ArrowDirection>(settingOrDefault.arrowDirection)
+    const [lineWeight, setLineWeight] = useState(settingOrDefault.lineWeight)
+    const [cornerRadius, setCornerRadius] = useState(settingOrDefault.cornerRadius)
     const [selectNodeOrientation, setSelectNodeOrientation] = useState<SelectNodeOrientation>({ orientation: 'horizontal', left: 'start', right: 'end' })
 
     // ノード（アイテム）の並び順を予想して、UI 側でも大体そうなるようにする
@@ -45,7 +61,7 @@ function useArrowSetting(startNode: Node, endNode: Node) {
             lineWeight: lineWeight,
             cornerRadius: cornerRadius
         }
-        FigmaUiMessageTool.postMessage(createArrow)
+        onCreateArrowRequest(createArrow)
     }
 
     return {
