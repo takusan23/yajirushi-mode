@@ -18,8 +18,8 @@ function NodeLineDirection({ index, nodeSize, direction, onChange }: NodeLineDir
         <div className="relative aspect-square w-1/3 border-2 border-primary-light dark:border-primary-dark">
 
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <p className="text-content-light dark:text-content-dark">{`${index}`}</p>
-                <p className="text-content-light dark:text-content-dark">{`${nodeSize.width}x${nodeSize.height}`}</p>
+                <p className="text-content-light dark:text-content-dark text-2xl">{`${index}`}</p>
+                <p className="text-content-light dark:text-content-dark text-base">{`${nodeSize.width}x${nodeSize.height}`}</p>
             </div>
 
             {/* それぞれの方角で */}

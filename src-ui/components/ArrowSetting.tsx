@@ -30,6 +30,7 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
         arrowDirection,
         lineWeight,
         cornerRadius,
+        selectNodeOrientation,
         setDirection,
         setRequiredLine,
         setArrowDirection,
@@ -43,6 +44,7 @@ function ArrowSetting({ startNode, endNode }: ArrowSettingProps) {
 
             {/* 線をどの方角から出して、どの方角から受け入れるか */}
             <NodeDirection
+                selectNodeOrientation={selectNodeOrientation}
                 startNodeSize={startNode.size}
                 startNodeDirection={startNodeDirection}
                 endNodeSize={endNode.size}

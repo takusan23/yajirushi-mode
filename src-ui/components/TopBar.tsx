@@ -16,13 +16,11 @@ function TopBar({ onLangChange }: TopBarProps) {
 
     return (
         <div className="flex flex-col">
-            <div className="flex flex-row p-1 items-center bg-primary-light dark:placeholder-primary-dark">
-                <p className="flex flex-1 text-xl text-background-light dark:text-background-dark">
+            <div className="flex flex-row py-1 px-2 items-center bg-background-light dark:bg-background-dark">
+                <p className="flex flex-1 text-xl text-primary-light dark:text-primary-dark">
                     {t('topbar.title')}
                 </p>
-                <button
-                    className="rounded-xl px-2 bg-background-light dark:bg-background-dark"
-                    onClick={() => setIsOpenSetting(!isOpenSetting)}>
+                <button onClick={() => setIsOpenSetting(!isOpenSetting)}>
                     {
                         isOpenSetting
                             ? <SettingCloseSvg className="svg-color" />
