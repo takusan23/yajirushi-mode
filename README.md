@@ -1,5 +1,5 @@
 # やじるしMODE
-選んだ2つの図形（図形じゃなくてもいい）の間に矢印をいい感じに書いてくれる`Figma プラグイン`です。  
+選んだ2つの図形（図形じゃなくてもいい）の間を矢印がいい感じに繋いでくれる`Figma プラグイン`です。  
 
 ![Imgur](https://imgur.com/bHUDpVL.png)
 
@@ -9,10 +9,14 @@
 
 ![Imgur](https://imgur.com/jqBZhaj.png)
 
+![Imgur](https://imgur.com/eO55IQD.png)
+
 # ダウンロード
-// todo
+https://www.figma.com/community/plugin/1344710416431362546
 
 # 開発環境構築
+
+![Imgur](https://imgur.com/Rmijync.png)
 
 ## 公式の説明
 https://www.figma.com/plugin-docs/plugin-quickstart-guide/
