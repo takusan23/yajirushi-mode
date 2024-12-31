@@ -19,7 +19,8 @@ function NodeLineDirection({ index, nodeSize, direction, onChange }: NodeLineDir
 
             <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <p className="text-content-light dark:text-content-dark text-2xl">{`${index}`}</p>
-                <p className="text-content-light dark:text-content-dark text-base">{`${nodeSize.width}x${nodeSize.height}`}</p>
+                {/* 小数点を消すため floor */}
+                <p className="text-content-light dark:text-content-dark text-base">{`${Math.floor(nodeSize.width)}x${Math.floor(nodeSize.height)}`}</p>
             </div>
 
             {/* それぞれの方角で */}
