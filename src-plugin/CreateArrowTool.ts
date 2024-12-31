@@ -29,8 +29,6 @@ class CreateArrowTool {
         // console.log(generateRoutePositionList)
 
         const lineVector = figma.createVector()
-        lineVector.strokeWeight = createArrow.lineWeight
-        lineVector.cornerRadius = createArrow.cornerRadius
 
         // 矢印を追加するためには、VectorPath ではなく、VectorNetwork を使って、最後（or 最初）のストロークに矢印をつける必要があるらしい。
         // が、SVG の data を VectorNetwork にするのは面倒なので、
@@ -61,6 +59,11 @@ class CreateArrowTool {
             vertices: vertices
         })
 
+        // 最後に cornerRadius しないと、途中で上書きされる？
+        // strokeWeight もついでに
+        lineVector.strokeWeight = createArrow.lineWeight
+        lineVector.cornerRadius = createArrow.cornerRadius
+        
         figma.currentPage.appendChild(lineVector)
     }
 }
