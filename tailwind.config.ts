@@ -3,10 +3,11 @@
 // Secondary #E34860
 // Tertiary #FDF1E7
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from 'tailwindcss'
+
+export default {
   content: [
-    "./src-ui/**/*.{js,ts,jsx,tsx}",
+    "./src-ui/**/*.{js,ts,jsx,tsx}"
   ],
   // Figma はダークモードにした時に class="figma-dark" を付ける。
   // Tailwind CSS のダークモード判定を変更する
@@ -37,4 +38,5 @@ module.exports = {
     },
   },
   plugins: [],
-}
+} satisfies Config
+
