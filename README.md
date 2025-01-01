@@ -63,3 +63,19 @@ https://www.figma.com/plugin-docs/plugin-quickstart-guide/
 型チェックはしてくれないので、`npm run tsc`で型チェックが出来ます（`--noEmit`）
 
 あと、`Figma Plugin`は`ES6+`？までの言語機能しか無いので、`ES6`でも動くように引数を設定しています。
+
+## 本番更新
+`npm run build`で`production`ビルドになります。  
+内訳としては、`src-ui`の方は`vite build`で`production`、  
+`src-plugin`の方も`esbuild`ですべてのミニファイオプションを有効（`--minify`）にしているため`production`になります。
+
+`npm run build`コマンドを叩いたらもうそれは本番のコードなので、それを`Figma デスクトップアプリ`からプラグインの更新をすれば良いです。  
+この手順で  
+
+https://help.figma.com/hc/en-us/articles/360042293714-Manage-plugins-as-a-developer
+
+ざっくり、`プラグインの管理`から三点メニューを押し`新しいバージョンを公開`で出来ます。  
+
+![Imgur](https://imgur.com/ee9PkVI.png)
+
+![Imgur](https://imgur.com/tuzSfxq.png)
