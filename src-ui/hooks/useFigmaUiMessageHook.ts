@@ -59,13 +59,13 @@ function useFigmaUiMessageHook() {
         // 線を書くためのパラメーターを永続化させる
         const updatedSetting: Setting = {
             ...setting,
-            arrowSetting: {
+            arrowSettingData: {
                 startDirection: createArrow.startDirection,
                 endDirection: createArrow.endDirection,
                 requiredLine: createArrow.requiredLine,
                 lineWeight: createArrow.lineWeight,
                 cornerRadius: createArrow.cornerRadius,
-                arrowDirection: createArrow.arrowDirection
+                arrowDirectionType: createArrow.arrowDirectionType
             }
         }
         applySetting(updatedSetting)

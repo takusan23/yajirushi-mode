@@ -21,7 +21,7 @@ class DrawLineAlgorithmTool {
             startDirection,
             endDirection,
             requiredLine,
-            arrowDirection
+            arrowDirectionType
         } = createArrow
 
         // 同じ方向から出る線の場合

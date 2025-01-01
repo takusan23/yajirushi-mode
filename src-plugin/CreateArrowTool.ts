@@ -39,13 +39,13 @@ class CreateArrowTool {
         }]
 
         // VectorNetwork を使ってストロークに矢印をつける
-        const arrowDirection = createArrow.arrowDirection
+        const arrowDirectionType = createArrow.arrowDirectionType
         const vertices: VectorVertex[] = lineVector.vectorNetwork.vertices
             .map((stroke, index) => {
-                if (index === 0 && (arrowDirection === 'startSide' || arrowDirection === 'startAndEndSide')) {
+                if (index === 0 && (arrowDirectionType === 'startSide' || arrowDirectionType === 'startAndEndSide')) {
                     // 開始側に矢印をつける
                     return { ...stroke, strokeCap: 'ARROW_LINES' }
-                } else if (index === lineVector.vectorNetwork.vertices.length - 1 && (arrowDirection === 'endSide' || arrowDirection === 'startAndEndSide')) {
+                } else if (index === lineVector.vectorNetwork.vertices.length - 1 && (arrowDirectionType === 'endSide' || arrowDirectionType === 'startAndEndSide')) {
                     // 終了側につける
                     return { ...stroke, strokeCap: 'ARROW_LINES' }
                 } else {

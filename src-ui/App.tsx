@@ -18,7 +18,7 @@ function App() {
                 // 2つ図形を選んでいれば編集画面、それ以外はエラー画面
                 screenState.event === 'select_node'
                     ? <ArrowSetting
-                        arrowSetting={setting.arrowSetting}
+                        arrowSettingData={setting.arrowSettingData}
                         startNode={screenState.startNode}
                         endNode={screenState.endNode}
                         onCreateArrowRequest={postCreateArrow}

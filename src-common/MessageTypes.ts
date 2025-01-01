@@ -32,7 +32,7 @@ export type Node = {
 export type Direction = 'top' | 'bottom' | 'left' | 'right'
 
 /** 矢印をつける先。開始側、終了側、両方 */
-export type ArrowDirection = 'endSide' | 'startSide' | 'startAndEndSide'
+export type ArrowDirectionType = 'endSide' | 'startSide' | 'startAndEndSide'
 
 /** 2つのアイテム（ノード）を選択したら呼ばれる */
 export type SelectNodes = {
@@ -66,7 +66,7 @@ export type CreateArrow = {
     /** 角丸（角の半径） */
     cornerRadius: number,
     /** 矢印の向き先。start 側につけるか、stop 側につけるか */
-    arrowDirection: ArrowDirection
+    arrowDirectionType: ArrowDirectionType
 }
 
 /** Figma Plugin API の clientStorage から値をもらう。{@link StorageUpdateResponse}が来ます。 */

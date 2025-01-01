@@ -8,12 +8,12 @@ import LineWeightSvg from "../icons/yajirushi-mode-line-weight.svg?react";
 import CornerRadiusSvg from "../icons/yajirushi-mode-corner-radius.svg?react";
 import RequireLineSvg from "../icons/yajirushi-mode-require-line.svg?react";
 import CreateButton from "./CreateButton";
-import { ArrowSetting } from "../Setting";
+import { ArrowSettingData } from "../Setting";
 
 /** ArrowSetting に渡す Props */
 type ArrowSettingProps = {
     /** 設定内容、前回のパラメーターを引き継ぐ */
-    arrowSetting?: ArrowSetting,
+    arrowSettingData?: ArrowSettingData,
     /** 開始側のノード（アイテム） */
     startNode: Node,
     /** 終了側のノード（アイテム） */
@@ -23,7 +23,7 @@ type ArrowSettingProps = {
 }
 
 /** 矢印の設定コンポーネント */
-function ArrowSetting({ arrowSetting, startNode, endNode, onCreateArrowRequest }: ArrowSettingProps) {
+function ArrowSetting({ arrowSettingData, startNode, endNode, onCreateArrowRequest }: ArrowSettingProps) {
     // i18next
     const { t } = useTranslation()
 
@@ -32,17 +32,17 @@ function ArrowSetting({ arrowSetting, startNode, endNode, onCreateArrowRequest }
         startNodeDirection,
         endNodeDirection,
         requiredLine,
-        arrowDirection,
+        arrowDirectionType,
         lineWeight,
         cornerRadius,
         selectNodeOrientation,
         setDirection,
         setRequiredLine,
-        setArrowDirection,
+        setArrowDirectionType,
         setLineWeight,
         setCornerRadius,
         postCreateArrowMessage
-    } = useArrowSetting(startNode, endNode, onCreateArrowRequest, arrowSetting)
+    } = useArrowSetting(startNode, endNode, onCreateArrowRequest, arrowSettingData)
 
     return (
         <div className="flex flex-col py-2 space-y-2">
@@ -58,8 +58,8 @@ function ArrowSetting({ arrowSetting, startNode, endNode, onCreateArrowRequest }
 
             <div className="flex flex-col px-2">
                 <ArrowDirection
-                    arrowDirection={arrowDirection}
-                    onChange={setArrowDirection} />
+                    currentArrowDirectionType={arrowDirectionType}
+                    onChange={setArrowDirectionType} />
                 <CommonInput
                     title={t('arrowsetting.lineweight.title')}
                     value={lineWeight}

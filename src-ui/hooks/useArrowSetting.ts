@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react"
-import { ArrowDirection, CreateArrow, Direction, Node, Position } from "../../src-common/MessageTypes"
+import { ArrowDirectionType, CreateArrow, Direction, Node, Position } from "../../src-common/MessageTypes"
 import { SelectNodeOrientation } from "../components/arrowsetting/NodeDirection"
-import { ArrowSetting } from "../Setting"
+import { ArrowSettingData } from "../Setting"
 
 /** ArrowSetting のデフォルト値 */
-const DefaultArrowSetting: ArrowSetting = {
+const DefaultArrowSetting: ArrowSettingData = {
     startDirection: 'right',
     endDirection: 'left',
     requiredLine: 50,
     lineWeight: 10,
     cornerRadius: 25,
-    arrowDirection: 'endSide'
+    arrowDirectionType: 'endSide'
 }
 
 /** ArrowSetting コンポーネントで使うカスタムフック。ロジックをあんまり書くのもあれかなと思い、、、 */
@@ -18,13 +18,13 @@ function useArrowSetting(
     startNode: Node,
     endNode: Node,
     onCreateArrowRequest: (createArrow: CreateArrow) => void,
-    arrowSetting?: ArrowSetting
+    arrowSetting?: ArrowSettingData
 ) {
     const settingOrDefault = arrowSetting ?? DefaultArrowSetting
     const [startNodeDirection, setStartNodeDirection] = useState<Direction>(settingOrDefault.startDirection)
     const [endNodeDirection, setEndNodeDirection] = useState<Direction>(settingOrDefault.endDirection)
     const [requiredLine, setRequiredLine] = useState(settingOrDefault.requiredLine)
-    const [arrowDirection, setArrowDirection] = useState<ArrowDirection>(settingOrDefault.arrowDirection)
+    const [arrowDirectionType, setArrowDirectionType] = useState<ArrowDirectionType>(settingOrDefault.arrowDirectionType)
     const [lineWeight, setLineWeight] = useState(settingOrDefault.lineWeight)
     const [cornerRadius, setCornerRadius] = useState(settingOrDefault.cornerRadius)
     const [selectNodeOrientation, setSelectNodeOrientation] = useState<SelectNodeOrientation>({ orientation: 'horizontal', left: 'start', right: 'end' })
@@ -57,7 +57,7 @@ function useArrowSetting(
             requiredLine: requiredLine,
             startDirection: startNodeDirection,
             endDirection: endNodeDirection,
-            arrowDirection: arrowDirection,
+            arrowDirectionType: arrowDirectionType,
             lineWeight: lineWeight,
             cornerRadius: cornerRadius
         }
@@ -68,13 +68,13 @@ function useArrowSetting(
         startNodeDirection,
         endNodeDirection,
         requiredLine,
-        arrowDirection,
+        arrowDirectionType,
         lineWeight,
         cornerRadius,
         selectNodeOrientation,
         setDirection,
         setRequiredLine,
-        setArrowDirection,
+        setArrowDirectionType,
         setLineWeight,
         setCornerRadius,
         postCreateArrowMessage
